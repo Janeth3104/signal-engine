@@ -3,26 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Binary Signal Engine Pro v2</title>
+<title>Binary Signal Engine Pro v2 — Datos Reales</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --green:#0ea672;--green-dim:#07734f;--green-bg:#e6f7f1;--green-text:#054d34;
-  --red:#e03e3e;--red-bg:#fdeaea;--red-text:#5c1212;
-  --amber:#d4830a;--amber-bg:#fef3e0;--amber-text:#5c3500;
-  --blue:#2563c8;--blue-bg:#eaf0fd;
-  --bg:#0e0f11;--bg2:#161719;--bg3:#1e2023;--bg4:#252729;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
-  --text:#e8e9eb;--text2:#9a9da4;--text3:#5e6168;
-  --r:10px;--rl:14px;
+  --green: #0ea672;
+  --green-dim: #07734f;
+  --green-bg: #e6f7f1;
+  --green-text: #054d34;
+  --red: #e03e3e;
+  --red-dim: #a82d2d;
+  --red-bg: #fdeaea;
+  --red-text: #5c1212;
+  --amber: #d4830a;
+  --amber-bg: #fef3e0;
+  --amber-text: #5c3500;
+  --blue: #2563c8;
+  --blue-bg: #eaf0fd;
+  --blue-text: #1a3e85;
+  --bg: #0e0f11;
+  --bg2: #161719;
+  --bg3: #1e2023;
+  --bg4: #252729;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e9eb;
+  --text2: #9a9da4;
+  --text3: #5e6168;
+  --radius: 10px;
+  --radius-lg: 14px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:1.25rem;}
+.mono{font-family:'IBM Plex Mono',monospace;}
 
 .app{max-width:820px;margin:0 auto;}
 
 /* HEADER */
-.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
 .brand{display:flex;align-items:center;gap:12px;}
 .brand-icon{width:36px;height:36px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:18px;}
 .brand-name{font-size:17px;font-weight:700;letter-spacing:-0.5px;}
@@ -30,1479 +48,916 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .live-badge{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--text2);}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.status-pill{font-size:11px;padding:4px 12px;border-radius:12px;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-weight:700;}
-.status-pill.ok{color:#00ff9d;border-color:rgba(0,255,157,.4);background:rgba(0,255,157,.08);}
-.status-pill.err{color:#ff5c75;border-color:rgba(255,92,117,.4);}
-.status-pill.demo{color:#ffcc00;border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.08);}
 
-/* API PANEL */
-.api-panel{background:var(--bg2);border:2px solid rgba(255,255,255,0.18);border-radius:var(--rl);padding:1rem 1.25rem;margin-bottom:1rem;}
-.api-label{font-size:14px;color:#ffffff;font-weight:700;margin-bottom:8px;display:block;}
+/* API KEY PANEL */
+.api-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;}
+.api-label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;}
 .api-row{display:flex;gap:8px;align-items:center;}
-.api-input{flex:1;background:var(--bg3);border:2px solid rgba(255,255,255,0.25);border-radius:var(--r);padding:10px 12px;font-size:14px;color:#ffffff;font-family:'IBM Plex Mono',monospace;outline:none;}
+.api-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 12px;font-size:13px;color:var(--text);font-family:'IBM Plex Mono',monospace;outline:none;}
 .api-input:focus{border-color:var(--green);}
-.api-input::placeholder{color:rgba(255,255,255,0.35);}
-.api-help{font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.6;}
-.api-help a{color:var(--green);}
+.api-input::placeholder{color:var(--text3);}
+.api-help{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.6;}
+.api-help a{color:var(--green);text-decoration:none;}
+.api-status{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:4px 10px;border-radius:6px;white-space:nowrap;}
+.api-status.ok{background:rgba(14,166,114,.15);color:var(--green);}
+.api-status.err{background:rgba(224,62,62,.15);color:var(--red);}
+.api-status.demo{background:rgba(212,131,10,.15);color:var(--amber);}
 
 /* CONFIG */
-.cfg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1rem;}
-.cfg-block{background:var(--bg2);border:2px solid rgba(255,255,255,0.18);border-radius:var(--r);padding:12px 14px;}
-.cfg-label{font-size:14px;color:#ffffff;font-weight:700;margin-bottom:8px;display:block;letter-spacing:0;}
-select,input[type=number],input[type=text]{width:100%;background:var(--bg3);border:2px solid rgba(255,255,255,0.25);border-radius:8px;padding:10px 12px;font-size:14px;color:#ffffff;font-family:'Syne',sans-serif;outline:none;font-weight:600;}
+.config-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1rem;}
+.config-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;}
+.config-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'IBM Plex Mono',monospace;}
+select,input[type=number]{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--text);font-family:'Syne',sans-serif;outline:none;cursor:pointer;}
 select:focus,input:focus{border-color:var(--green);}
-select option{background:#1e2023;color:#ffffff;}
+select option{background:var(--bg3);}
 
 /* BUTTON */
-.btn-analyze{width:100%;padding:14px;background:var(--green);color:#000;border:none;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;margin-bottom:1rem;font-family:'Syne',sans-serif;transition:opacity .15s;}
-.btn-analyze:hover{opacity:.87;}
-.btn-analyze:active{opacity:.7;}
-.btn-analyze:disabled{opacity:.4;cursor:not-allowed;}
+.analyze-btn{width:100%;padding:14px;background:var(--green);color:#fff;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;cursor:pointer;margin-bottom:1rem;transition:all .15s;font-family:'Syne',sans-serif;letter-spacing:0.3px;}
+.analyze-btn:hover{background:var(--green-dim);}
+.analyze-btn:active{transform:scale(0.99);}
+.analyze-btn:disabled{opacity:.4;cursor:not-allowed;}
 
-/* LOADER */
-.loader{display:none;text-align:center;padding:2rem;}
-.loader.show{display:block;}
-.spinner{width:36px;height:36px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem;}
+/* LOADING */
+.loading-overlay{display:none;text-align:center;padding:2rem;}
+.loading-overlay.show{display:block;}
+.spinner{width:36px;height:36px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-msg{font-size:14px;color:#ffffff;font-weight:600;font-family:'IBM Plex Mono',monospace;}
+.loading-step{font-size:13px;color:var(--text2);font-family:'IBM Plex Mono',monospace;}
 
 /* PRICE BAR */
-.pricebar{display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:var(--bg2);border:2px solid rgba(255,255,255,0.18);border-radius:var(--rl);padding:1rem 1.25rem;margin-bottom:1rem;}
-.pricebar.show{display:flex;}
-.pb-sym{font-size:13px;color:#ffffff;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-bottom:3px;}
-.pb-price{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#ffffff;}
-.pb-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.pb-chg{font-size:13px;padding:5px 12px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:700;}
-.pb-chg.up{background:rgba(0,255,157,.15);color:#00ff9d;}
-.pb-chg.dn{background:rgba(255,92,117,.15);color:#ff5c75;}
-.pb-meta{font-size:12px;color:rgba(255,255,255,0.5);font-family:'IBM Plex Mono',monospace;}
-.pb-src{font-size:11px;padding:3px 9px;border-radius:4px;font-family:'IBM Plex Mono',monospace;background:var(--bg4);color:#ffffff;font-weight:700;}
+.price-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 16px;margin-bottom:1rem;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.price-bar.show{display:flex;}
+.price-main{font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.price-change{font-size:13px;font-family:'IBM Plex Mono',monospace;padding:3px 8px;border-radius:6px;}
+.price-change.up{background:rgba(14,166,114,.15);color:var(--green);}
+.price-change.down{background:rgba(224,62,62,.15);color:var(--red);}
+.price-meta{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;}
+.price-source{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;background:var(--bg3);padding:2px 8px;border-radius:4px;}
 
 /* SIGNAL BOX */
-.signal-box{display:none;border-radius:var(--rl);border:1px solid var(--border);padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden;}
+.signal-box{border-radius:var(--radius-lg);border:1px solid var(--border);padding:1.5rem;margin-bottom:1rem;display:none;position:relative;overflow:hidden;}
 .signal-box.show{display:block;}
-.signal-box::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--rl) var(--rl) 0 0;}
+.signal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.signal-box.call::before{background:var(--green);}
+.signal-box.put::before{background:var(--red);}
+.signal-box.neutral::before{background:var(--amber);}
 .signal-box.call{background:linear-gradient(160deg,rgba(14,166,114,.06) 0%,var(--bg2) 60%);}
-.signal-box.call::after{background:var(--green);}
 .signal-box.put{background:linear-gradient(160deg,rgba(224,62,62,.06) 0%,var(--bg2) 60%);}
-.signal-box.put::after{background:var(--red);}
-.signal-box.neutral{background:linear-gradient(160deg,rgba(212,131,10,.05) 0%,var(--bg2) 60%);}
-.signal-box.neutral::after{background:var(--amber);}
+.signal-box.neutral{background:linear-gradient(160deg,rgba(212,131,10,.06) 0%,var(--bg2) 60%);}
 
-.sig-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;}
-.sig-dir{font-size:32px;font-weight:700;letter-spacing:-1px;display:flex;align-items:center;gap:10px;}
+.signal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.signal-dir{font-size:32px;font-weight:700;display:flex;align-items:center;gap:12px;letter-spacing:-1px;}
 .dir-call{color:var(--green);}
 .dir-put{color:var(--red);}
 .dir-neutral{color:var(--amber);}
-.sig-right{text-align:right;}
-.eff-lbl{font-size:13px;color:#ffffff;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
-.eff-val{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.signal-right{text-align:right;}
+.eff-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;}
+.eff-value{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
 .eff-call{color:var(--green);}
 .eff-put{color:var(--red);}
 .eff-neutral{color:var(--amber);}
-.bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-top:5px;width:130px;overflow:hidden;margin-left:auto;}
+.bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-top:6px;width:130px;overflow:hidden;margin-left:auto;}
 .bar-fill{height:100%;border-radius:3px;transition:width .9s cubic-bezier(.4,0,.2,1);}
 .bar-fill.call{background:var(--green);}
 .bar-fill.put{background:var(--red);}
 .bar-fill.neutral{background:var(--amber);}
 
-/* INDICATORS */
-.ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem;}
-.ind-card{background:var(--bg3);border:2px solid rgba(255,255,255,0.12);border-radius:var(--r);padding:10px 12px;cursor:pointer;transition:border-color .15s;}
-.ind-card:hover,.ind-card.open{border-color:rgba(255,255,255,0.3);background:var(--bg4);}
-.ic-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
-.ic-name{font-size:12px;color:#ffffff;font-weight:700;letter-spacing:.2px;}
-.ic-toggle{font-size:11px;color:rgba(255,255,255,0.4);}
-.ic-val{font-size:14px;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-bottom:3px;}
-.ic-sig{font-size:12px;font-weight:700;}
-.ic-bull{color:#00ff9d;}
-.ic-bear{color:#ff5c75;}
-.ic-neut{color:#ffcc00;}
-.ic-exp{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--text2);line-height:1.7;}
-.ic-exp.open{display:block;}
-.ic-reading{margin-top:8px;padding:8px 11px;border-left:2px solid;border-radius:0 6px 6px 0;font-size:11px;line-height:1.6;}
-.ic-reading.bull{border-color:var(--green);background:rgba(14,166,114,.06);color:#7de8c8;}
-.ic-reading.bear{border-color:var(--red);background:rgba(224,62,62,.06);color:#ffaaaa;}
-.ic-reading.neut{border-color:var(--amber);background:rgba(212,131,10,.06);color:#ffd080;}
-.ic-tip{margin-top:8px;font-size:11px;color:rgba(255,255,255,0.5);font-style:italic;line-height:1.6;}
+/* INDICATORS GRID */
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-bottom:1rem;}
+.ind-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;cursor:pointer;transition:border-color .15s;}
+.ind-card:hover{border-color:var(--border2);}
+.ind-card.expanded{border-color:var(--border2);background:var(--bg4);}
+.ind-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
+.ind-name{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;font-family:'IBM Plex Mono',monospace;}
+.ind-arrow{font-size:10px;color:var(--text3);}
+.ind-value{font-size:15px;font-weight:700;font-family:'IBM Plex Mono',monospace;margin-bottom:3px;}
+.ind-signal{font-size:11px;font-weight:600;}
+.ind-bull{color:var(--green);}
+.ind-bear{color:var(--red);}
+.ind-neutral{color:var(--amber);}
+
+/* EXPLANATION PANEL */
+.explanation{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.explanation.open{display:block;}
+.exp-title{font-size:11px;color:var(--text2);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.exp-body{font-size:12px;color:var(--text2);line-height:1.7;}
+.exp-reading{background:var(--bg2);border-left:3px solid;border-radius:0 6px 6px 0;padding:8px 12px;margin-top:8px;font-size:12px;line-height:1.6;}
+.exp-reading.bull{border-color:var(--green);color:#9de8c7;}
+.exp-reading.bear{border-color:var(--red);color:#f2a4a4;}
+.exp-reading.neut{border-color:var(--amber);color:#f0c06a;}
+.exp-tip{font-size:11px;color:var(--text3);margin-top:8px;font-style:italic;line-height:1.6;}
 
 /* DIVIDER */
-.div{height:1px;background:rgba(255,255,255,0.12);margin:.9rem 0;}
-.sec-title{font-size:13px;color:#ffffff;font-weight:700;margin-bottom:10px;letter-spacing:.3px;}
+.divider{height:1px;background:var(--border);margin:.75rem 0;}
 
 /* CONFLUENCE */
-.conf-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.conf-label{font-size:13px;color:#ffffff;font-weight:600;min-width:130px;}
-.conf-dots{display:flex;gap:6px;}
-.conf-dot{width:15px;height:15px;border-radius:50%;}
-.conf-dot.bull{background:#00ff9d;}
-.conf-dot.bear{background:#ff5c75;}
-.conf-dot.neut{background:#ffcc00;opacity:.6;}
+.conf-section{margin-bottom:1rem;}
+.section-title{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;margin-bottom:10px;}
+.conf-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.conf-label{font-size:12px;color:var(--text2);min-width:140px;}
+.conf-dots{display:flex;gap:5px;}
+.conf-dot{width:13px;height:13px;border-radius:50%;}
+.conf-dot.bull{background:var(--green);}
+.conf-dot.bear{background:var(--red);}
+.conf-dot.neut{background:var(--amber);opacity:.6;}
 
-/* VERIFY PANEL */
-.verify-panel{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;}
-.verify-hdr{display:flex;align-items:center;gap:8px;margin-bottom:.85rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
-.verify-title{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.6px;}
-.verify-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px;margin-bottom:.85rem;}
-.verify-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
-.vc-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
-.vc-val{font-size:17px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
-.vc-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:3px;}
-.vc-ohlc{font-size:11px;font-family:'IBM Plex Mono',monospace;line-height:1.8;}
-.verify-tip{font-size:11px;color:var(--text2);background:var(--bg2);border-radius:8px;padding:10px 13px;border-left:3px solid var(--blue);line-height:1.75;}
-
-/* EXPLANATION */
-.exp-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem;}
-.exp-hdr{display:flex;align-items:center;gap:8px;margin-bottom:1rem;}
-.exp-icon{font-size:18px;}
-.exp-title{font-size:13px;font-weight:700;}
-.exp-body{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:.75rem;}
-.exp-reasons{display:flex;flex-direction:column;gap:7px;margin-bottom:1rem;}
-.exp-r{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--text2);line-height:1.65;}
-.exp-r-dot{width:6px;height:6px;border-radius:50%;margin-top:4px;flex-shrink:0;}
-.exp-r-dot.bull{background:var(--green);}
-.exp-r-dot.bear{background:var(--red);}
-.exp-r-dot.neut{background:var(--amber);}
-.exp-lesson{padding:12px 14px;background:rgba(37,99,200,.08);border-radius:8px;border-left:3px solid var(--blue);font-size:11px;color:#8ab4f8;line-height:1.7;}
-.exp-lesson strong{color:var(--text);}
+/* EXPLANATION MAIN */
+.signal-explanation{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;}
+.se-header{display:flex;align-items:center;gap:8px;margin-bottom:1rem;}
+.se-icon{font-size:18px;}
+.se-title{font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.5px;}
+.se-body{font-size:13px;color:var(--text2);line-height:1.8;}
+.se-body strong{color:var(--text);font-weight:600;}
+.se-reasons{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.se-reason{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);line-height:1.6;}
+.se-reason-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.se-reason-dot.bull{background:var(--green);}
+.se-reason-dot.bear{background:var(--red);}
+.se-reason-dot.neut{background:var(--amber);}
+.se-lesson{margin-top:12px;padding:10px 14px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--blue);font-size:12px;color:#8ab4f8;line-height:1.7;}
+.se-lesson span{color:var(--text2);}
 
 /* FOOTER META */
-.footer-meta{display:flex;gap:14px;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.12);}
-.meta-item{font-size:12px;color:rgba(255,255,255,0.5);font-family:'IBM Plex Mono',monospace;}
-.meta-item span{color:#ffffff;font-weight:700;}
+.footer-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.meta-item{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;}
+.meta-item span{color:var(--text2);}
 
 /* LOG */
-.log{background:#070a0d;border:2px solid rgba(255,255,255,0.15);border-radius:var(--r);padding:11px 13px;font-size:12px;font-family:'IBM Plex Mono',monospace;max-height:120px;overflow-y:auto;margin-bottom:1rem;display:none;}
-.log.show{display:block;}
-.ll{margin-bottom:2px;color:rgba(255,255,255,0.4);}
-.ll.ok{color:#00ff9d;}
-.ll.warn{color:#ffcc00;}
-.ll.info{color:#5bc4ff;}
-.ll.err{color:#ff5c75;}
+.log-section{background:#0a0c0e;border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;font-size:11px;font-family:'IBM Plex Mono',monospace;max-height:130px;overflow-y:auto;margin-bottom:1rem;display:none;}
+.log-section.show{display:block;}
+.log-line{margin-bottom:2px;color:var(--text3);}
+.log-line.ok{color:#7ee787;}
+.log-line.warn{color:#e3b341;}
+.log-line.info{color:#58a6ff;}
+.log-line.err{color:#f87171;}
 
 /* HISTORY */
-.hist{display:none;margin-bottom:1rem;}
-.hist.show{display:block;}
-.hist-title{font-size:13px;color:#ffffff;font-weight:700;margin-bottom:8px;}
-.hist-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg2);border:2px solid rgba(255,255,255,0.12);border-radius:var(--r);padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:5px;font-family:'IBM Plex Mono',monospace;}
-.h-badge{font-size:12px;padding:4px 12px;border-radius:8px;font-weight:700;}
-.h-badge.call{background:rgba(0,255,157,.15);color:#00ff9d;}
-.h-badge.put{background:rgba(255,92,117,.15);color:#ff5c75;}
-.h-badge.neutral{background:rgba(255,204,0,.15);color:#ffcc00;}
+.history-section{margin-bottom:1rem;display:none;}
+.history-section.show{display:block;}
+.history-title{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;margin-bottom:8px;}
+.history-list{display:flex;flex-direction:column;gap:5px;}
+.history-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg2);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--text3);border:1px solid var(--border);font-family:'IBM Plex Mono',monospace;}
+.h-badge{font-size:11px;padding:3px 10px;border-radius:10px;font-weight:700;}
+.h-badge.call{background:rgba(14,166,114,.15);color:var(--green);}
+.h-badge.put{background:rgba(224,62,62,.15);color:var(--red);}
+.h-badge.neutral{background:rgba(212,131,10,.15);color:var(--amber);}
 
 /* DISCLAIMER */
-.disclaimer{font-size:11px;color:var(--text3);line-height:1.7;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg2);}
+.disclaimer{font-size:11px;color:var(--text3);line-height:1.7;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg2);margin-bottom:1rem;}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- HEADER -->
-<div class="hdr">
-  <div class="brand">
-    <div class="brand-icon">📡</div>
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">📡</div>
+      <div>
+        <div class="brand-name">Binary Signal Engine Pro</div>
+        <div class="brand-sub mono">v2.0 · datos reales · modo educativo</div>
+      </div>
+    </div>
+    <div class="live-badge"><div class="live-dot"></div> En vivo</div>
+  </div>
+
+  <!-- API KEY -->
+  <div class="api-panel">
+    <div class="api-label">Clave API — Twelve Data (gratis)</div>
+    <div class="api-row">
+      <input class="api-input mono" type="text" id="apiKey" placeholder="Pega tu API key aquí  ej: a1b2c3d4e5f6..." />
+      <div class="api-status demo" id="apiStatus">● DEMO</div>
+    </div>
+    <div class="api-help">
+      API gratuita en <a href="https://twelvedata.com" target="_blank">twelvedata.com</a> → Register → Dashboard → tu API Key (800 llamadas/día gratis). Sin clave funciona en modo simulación.
+    </div>
+  </div>
+
+  <!-- CONFIG -->
+  <div class="config-grid">
+    <div class="config-block">
+      <div class="config-label">Par / Activo</div>
+      <select id="asset">
+        <optgroup label="Forex">
+          <option value="EUR/USD">EUR/USD</option>
+          <option value="GBP/USD">GBP/USD</option>
+          <option value="USD/JPY">USD/JPY</option>
+          <option value="AUD/USD">AUD/USD</option>
+          <option value="EUR/GBP">EUR/GBP</option>
+          <option value="USD/CAD">USD/CAD</option>
+          <option value="NZD/USD">NZD/USD</option>
+        </optgroup>
+        <optgroup label="Crypto">
+          <option value="BTC/USD">BTC/USD</option>
+          <option value="ETH/USD">ETH/USD</option>
+        </optgroup>
+        <optgroup label="OTC (simulado)">
+          <option value="OTC:EUR/USD">OTC EUR/USD</option>
+          <option value="OTC:GBP/USD">OTC GBP/USD</option>
+          <option value="OTC:AUD/USD">OTC AUD/USD</option>
+          <option value="OTC:USD/JPY">OTC USD/JPY</option>
+        </select>
+    </div>
+    <div class="config-block">
+      <div class="config-label">Temporalidad</div>
+      <select id="timeframe">
+        <option value="1min">M1 (1 minuto)</option>
+        <option value="5min">M5 (5 minutos)</option>
+        <option value="15min" selected>M15 (15 minutos)</option>
+        <option value="30min">M30 (30 minutos)</option>
+        <option value="1h">H1 (1 hora)</option>
+      </select>
+    </div>
+    <div class="config-block">
+      <div class="config-label">Expiración (min)</div>
+      <input type="number" id="expiry" value="5" min="1" max="60" />
+    </div>
+    <div class="config-block">
+      <div class="config-label">Umbral mínimo (%)</div>
+      <input type="number" id="threshold" value="68" min="50" max="90" />
+    </div>
+  </div>
+
+  <button class="analyze-btn" id="analyzeBtn" onclick="runAnalysis()">
+    ⚡ Analizar mercado y generar señal
+  </button>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-step" id="loadingStep">Conectando con el mercado...</div>
+  </div>
+
+  <!-- PRICE BAR -->
+  <div class="price-bar" id="priceBar">
     <div>
-      <div class="brand-name">Binary Signal Engine Pro</div>
-      <div class="brand-sub">v2.2 · IQ Option / Exnova · Con Journal y Contador</div>
+      <div style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-bottom:2px;" id="priceAsset">—</div>
+      <div class="price-main mono" id="priceMain">—</div>
     </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px;">
-    <div class="live-badge"><div class="live-dot"></div>En vivo</div>
-    <div id="clockBadge" style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:12px;border:1px solid var(--border2);color:var(--text2);"></div>
-    <div class="status-pill demo" id="apiStatusPill">● DEMO</div>
-  </div>
-</div>
-
-<!-- TABS -->
-<div style="display:flex;gap:2px;background:var(--bg2);border-radius:var(--r);padding:3px;margin-bottom:1.25rem;border:1px solid var(--border2);">
-  <div class="vtab active" id="vtab-signal" onclick="vSwitchTab('signal')" style="flex:1;padding:10px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;border-radius:8px;font-weight:600;transition:all .2s;">⚡ Señal</div>
-  <div class="vtab" id="vtab-timer"  onclick="vSwitchTab('timer')"  style="flex:1;padding:10px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;border-radius:8px;font-weight:600;transition:all .2s;">⏱ Contador</div>
-  <div class="vtab" id="vtab-journal" onclick="vSwitchTab('journal')" style="flex:1;padding:10px;text-align:center;font-size:13px;color:var(--text2);cursor:pointer;border-radius:8px;font-weight:600;transition:all .2s;">📒 Journal</div>
-</div>
-
-<!-- PANEL SEÑAL -->
-<div id="vpanel-signal">
-
-<!-- API KEY -->
-<div class="api-panel">
-  <div class="api-label">API Key — Twelve Data (gratis)</div>
-  <div class="api-row">
-    <input class="api-input" type="text" id="apiKey" placeholder="Pega tu API key aquí  →  twelvedata.com (gratis, sin tarjeta)" />
-    <button onclick="verifyApiKey()" style="background:var(--bg3);border:2px solid rgba(255,255,255,0.25);border-radius:var(--r);padding:9px 14px;color:#ffffff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;white-space:nowrap;">✓ Verificar</button>
-  </div>
-  <div id="apiVerifyMsg" style="font-size:12px;margin-top:6px;display:none;"></div>
-  <div class="api-help">
-    Sin clave funciona en modo simulación. Con clave gratuita de <a href="https://twelvedata.com" target="_blank">twelvedata.com</a> obtienes datos reales en tiempo real (800 llamadas/día gratis).
-  </div>
-</div>
-
-<!-- CONFIG -->
-<div class="cfg-grid">
-  <div class="cfg-block">
-    <div class="cfg-label">Par / Activo</div>
-    <select id="asset">
-      <optgroup label="Forex">
-        <option value="EUR/USD">EUR/USD</option>
-        <option value="GBP/USD">GBP/USD</option>
-        <option value="USD/JPY">USD/JPY</option>
-        <option value="AUD/USD">AUD/USD</option>
-        <option value="EUR/GBP">EUR/GBP</option>
-        <option value="USD/CAD">USD/CAD</option>
-        <option value="NZD/USD">NZD/USD</option>
-      </optgroup>
-      <optgroup label="Crypto">
-        <option value="BTC/USD">BTC/USD</option>
-        <option value="ETH/USD">ETH/USD</option>
-      </optgroup>
-      <optgroup label="OTC (simulado)">
-        <option value="OTC:EUR/USD">OTC EUR/USD</option>
-        <option value="OTC:GBP/USD">OTC GBP/USD</option>
-        <option value="OTC:AUD/USD">OTC AUD/USD</option>
-        <option value="OTC:USD/JPY">OTC USD/JPY</option>
-      </optgroup>
-    </select>
-  </div>
-  <div class="cfg-block">
-    <div class="cfg-label">Temporalidad</div>
-    <select id="timeframe" onchange="onTFChange()">
-      <option value="1min">M1 — 1 minuto</option>
-      <option value="5min" selected>M5 — 5 minutos ⭐</option>
-      <option value="15min">M15 — 15 minutos</option>
-      <option value="30min">M30 — 30 minutos</option>
-      <option value="1h">H1 — 1 hora</option>
-    </select>
-  </div>
-  <div class="cfg-block">
-    <div class="cfg-label">Expiración (min)</div>
-    <input type="number" id="expiry" value="5" min="1" max="60" />
-  </div>
-  <div class="cfg-block">
-    <div class="cfg-label">Umbral mínimo (%)</div>
-    <input type="number" id="threshold" value="68" min="50" max="90" />
-  </div>
-</div>
-
-<!-- AVISO TEMPORALIDAD -->
-<div id="tfWarning" style="display:none;margin-bottom:1rem;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;line-height:1.6;border:2px solid;"></div>
-
-<!-- BUTTON -->
-<button class="btn-analyze" id="analyzeBtn">⚡ Analizar y generar señal</button>
-
-<!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="spinner"></div>
-  <div class="load-msg" id="loadMsg">Iniciando análisis...</div>
-</div>
-
-<!-- PRICE BAR -->
-<div class="pricebar" id="priceBar">
-  <div>
-    <div class="pb-sym" id="pbSym">—</div>
-    <div class="pb-price" id="pbPrice">—</div>
-  </div>
-  <div class="pb-right">
-    <div class="pb-chg up" id="pbChg">—</div>
-    <div class="pb-meta" id="pbMeta">—</div>
-    <div class="pb-src" id="pbSrc">DEMO</div>
-  </div>
-</div>
-
-<!-- SIGNAL BOX -->
-<div class="signal-box" id="signalBox">
-
-  <!-- TOP: dirección + efectividad -->
-  <div class="sig-top">
-    <div class="sig-dir" id="sigDir"></div>
-    <div class="sig-right">
-      <div class="eff-lbl">Efectividad</div>
-      <div class="eff-val" id="effVal"></div>
-      <div class="bar-wrap"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="price-change" id="priceChange">—</div>
+      <div class="price-meta mono" id="priceMeta">—</div>
+      <div class="price-source mono" id="priceSource">DEMO</div>
     </div>
   </div>
 
-  <!-- FIABILIDAD DE TEMPORALIDAD -->
-  <div id="tfReliability" style="margin-bottom:1rem;padding:12px 16px;border-radius:10px;border:2px solid;font-size:13px;line-height:1.7;"></div>
-
-  <!-- INDICADORES -->
-  <div class="sec-title">Indicadores técnicos — clic para aprender</div>
-  <div class="ind-grid" id="indGrid"></div>
-  <div class="div"></div>
-
-  <!-- CONFLUENCIA -->
-  <div class="sec-title">Mapa de confluencia</div>
-  <div id="confArea"></div>
-  <div class="div"></div>
-
-  <!-- PANEL DE VERIFICACIÓN -->
-  <div class="verify-panel" id="verifyPanel">
-    <div class="verify-hdr">
-      <span style="font-size:16px;">🔍</span>
-      <span class="verify-title">Punto de análisis — verifica en tu broker</span>
-    </div>
-    <div class="verify-grid" id="verifyGrid"></div>
-    <div class="verify-tip" id="verifyTip"></div>
-  </div>
-
-  <!-- EXPLICACIÓN PRINCIPAL -->
-  <div class="exp-box" id="expBox"></div>
-
-  <!-- FOOTER META -->
-  <div class="footer-meta" id="footerMeta"></div>
-</div>
-
-<!-- LOG -->
-<div class="log" id="logEl"></div>
-
-<!-- HISTORIAL -->
-<div class="hist" id="histEl">
-  <div class="hist-title">Señales esta sesión</div>
-  <div id="histList"></div>
-</div>
-
-<div class="disclaimer">
-  ⚠ Herramienta educativa de análisis técnico. Las señales no constituyen asesoramiento financiero. El trading de opciones binarias implica riesgo de pérdida total del capital. Opera siempre con gestión de riesgo estricta: máximo 1–2% del capital por operación.
-</div>
-
-</div><!-- close vpanel-signal -->
-
-<!-- PANEL CONTADOR -->
-<div id="vpanel-timer" style="display:none;">
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rl);padding:1.25rem;margin-bottom:1rem;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:10px;">
-      <div style="font-size:14px;font-weight:700;">⏱ Contador de cierre de vela</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <select id="vTimerTF" onchange="vResetTimer()" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'Syne',sans-serif;outline:none;font-weight:600;">
-          <option value="60">M1 — 1 min</option>
-          <option value="300" selected>M5 — 5 min ⭐</option>
-          <option value="900">M15 — 15 min</option>
-          <option value="1800">M30 — 30 min</option>
-          <option value="3600">H1 — 1 hora</option>
-        </select>
-        <button onclick="vSyncTimer()" style="background:var(--bg4);border:1px solid var(--border2);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--text);cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;">🔄 Sincronizar</button>
+  <!-- SIGNAL BOX -->
+  <div class="signal-box" id="signalBox">
+    <div class="signal-top">
+      <div class="signal-dir" id="signalDir"></div>
+      <div class="signal-right">
+        <div class="eff-label">Efectividad</div>
+        <div class="eff-value" id="effVal"></div>
+        <div class="bar-wrap"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-      <div style="position:relative;width:110px;height:110px;flex-shrink:0;">
-        <svg width="110" height="110" viewBox="0 0 110 110" style="transform:rotate(-90deg)">
-          <circle cx="55" cy="55" r="46" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/>
-          <circle id="vRing" cx="55" cy="55" r="46" fill="none" stroke="#00ff9d" stroke-width="8" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="0" style="transition:stroke-dashoffset .95s linear,stroke .3s;"/>
-        </svg>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-          <div id="vTimerSec" style="font-size:26px;font-weight:800;font-family:'IBM Plex Mono',monospace;color:#00ff9d;">--</div>
-          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;">seg</div>
-        </div>
-      </div>
-      <div style="flex:1;min-width:180px;">
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;">
-          <span style="color:var(--text2);">Tiempo restante</span><span id="vTimerFull" style="font-weight:700;font-family:'IBM Plex Mono',monospace;">--:--</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;">
-          <span style="color:var(--text2);">Próximo cierre</span><span id="vTimerNext" style="font-weight:700;font-family:'IBM Plex Mono',monospace;">--:--:--</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;">
-          <span style="color:var(--text2);">Hora actual</span><span id="vTimerNow" style="font-weight:700;font-family:'IBM Plex Mono',monospace;">--:--:--</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13px;">
-          <span style="color:var(--text2);">Estado</span><span id="vTimerStatus" style="font-size:12px;padding:3px 10px;border-radius:12px;font-weight:700;background:rgba(255,204,0,.1);color:#ffcc00;">Esperando</span>
-        </div>
-      </div>
-    </div>
-    <div id="vTimerAlert" style="display:none;margin-top:1rem;padding:11px 14px;border-radius:8px;font-size:14px;font-weight:700;"></div>
-  </div>
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rl);padding:1.25rem;">
-    <div style="font-size:14px;font-weight:700;margin-bottom:1rem;">¿Cuándo entrar exactamente?</div>
-    <div style="font-size:13px;color:var(--text2);line-height:1.9;">
-      <div style="margin-bottom:.5rem;"><span style="color:#00ff9d;font-weight:700;">✓ Ideal:</span> Últimos <strong style="color:var(--text);">5-15 segundos</strong> — analiza y entra al inicio de la nueva vela.</div>
-      <div style="margin-bottom:.5rem;"><span style="color:#ffcc00;font-weight:700;">⚠ Aceptable:</span> Entre <strong style="color:var(--text);">15-30 segundos</strong> — puedes entrar con cuidado.</div>
-      <div style="margin-bottom:.5rem;"><span style="color:#ff5c75;font-weight:700;">✗ Evita:</span> Más de <strong style="color:var(--text);">30 segundos</strong> — espera el siguiente cierre.</div>
-      <div><span style="color:#5bc4ff;font-weight:700;">💡 Regla de oro:</span> Genera la señal con ~20 segundos restantes y ejecuta en los últimos 5.</div>
-    </div>
-  </div>
-</div>
 
-<!-- PANEL JOURNAL -->
-<div id="vpanel-journal" style="display:none;">
-  <div id="vjStats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:1rem;"></div>
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rl);padding:1.25rem;margin-bottom:1rem;">
-    <div style="font-size:14px;font-weight:700;margin-bottom:1rem;">Registrar operación</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:10px;">
-      <div class="cfg-block"><div class="cfg-label">Activo</div>
-        <select id="vj_asset">
-          <option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option>
-          <option>AUD/USD</option><option>EUR/GBP</option><option>BTC/USD</option>
-          <option>ETH/USD</option><option>OTC EUR/USD</option><option>OTC GBP/USD</option><option>Otro</option>
-        </select>
-      </div>
-      <div class="cfg-block"><div class="cfg-label">Dirección</div>
-        <select id="vj_dir"><option value="call">▲ CALL (SUBE)</option><option value="put">▼ PUT (BAJA)</option></select>
-      </div>
-      <div class="cfg-block"><div class="cfg-label">Resultado</div>
-        <select id="vj_result"><option value="win">✅ Ganada</option><option value="loss">❌ Perdida</option></select>
-      </div>
-      <div class="cfg-block"><div class="cfg-label">Inversión ($)</div>
-        <input type="number" id="vj_amount" placeholder="100" min="1"/>
-      </div>
-    </div>
-    <div class="cfg-block" style="margin-bottom:12px;"><div class="cfg-label">Notas</div>
-      <input type="text" id="vj_notes" placeholder="ej: RSI sobrevendido + martillo en soporte"/>
-    </div>
-    <button class="btn-analyze" onclick="vAddJournal()" style="padding:11px;">+ Registrar operación</button>
-  </div>
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rl);padding:1.25rem;">
-    <div style="font-size:14px;font-weight:700;margin-bottom:1rem;">Historial de operaciones</div>
-    <div id="vjList" style="max-height:380px;overflow-y:auto;"></div>
-    <div style="display:flex;gap:8px;margin-top:1rem;">
-      <button onclick="vExportJournal()" style="flex:1;padding:9px;background:var(--bg4);border:1px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;">📥 Exportar CSV</button>
-      <button onclick="vClearJournal()" style="flex:1;padding:9px;background:var(--bg4);border:1px solid rgba(255,92,117,.4);border-radius:var(--r);color:#ff5c75;font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;">🗑 Limpiar</button>
-    </div>
-  </div>
-</div>
+    <div class="ind-grid" id="indGrid"></div>
+    <div class="divider"></div>
 
-</div><!-- end .app -->
+    <div class="conf-section">
+      <div class="section-title">Confluencia de señales</div>
+      <div id="confArea"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- MAIN EXPLANATION -->
+    <div class="signal-explanation" id="signalExplanation"></div>
+
+    <div class="footer-meta" id="footerMeta"></div>
+  </div>
+
+  <div class="log-section" id="logSection"></div>
+
+  <div class="history-section" id="historySection">
+    <div class="history-title">Señales anteriores esta sesión</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠ Herramienta educativa de análisis técnico. Las señales se basan en confluencia de 8 indicadores sobre datos reales de mercado. No constituyen asesoramiento financiero. El trading de opciones binarias implica riesgo de pérdida total. Opere con gestión de riesgo estricta: máximo 1–2% del capital por operación.
+  </div>
+
+</div>
 
 <script>
-'use strict';
+// ─── ESTADO ────────────────────────────────────────────────────
+const signalHistory = [];
+let lastPriceData = null;
 
-// ── UTILS ─────────────────────────────────────────────────────
+// ─── UTILS ─────────────────────────────────────────────────────
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const $ = id => document.getElementById(id);
-const signalHistory = [];
-let lastResult = null; // guarda el último análisis para re-aplicar umbral
 
-// ── LOG (global, siempre disponible) ──────────────────────────
-function addLog(msg, type) {
-  const el = $('logEl');
-  if (!el) return;
+function log(msg, type='') {
+  const el = $('logSection');
   const d = document.createElement('div');
-  d.className = 'll ' + (type || '');
+  d.className = 'log-line ' + type;
   d.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
   el.appendChild(d);
   el.scrollTop = el.scrollHeight;
 }
 
-function setStep(msg) {
-  const el = $('loadMsg');
-  if (el) el.textContent = msg;
-}
-
-// ── API KEY FEEDBACK ──────────────────────────────────────────
-// ── VERIFICAR API KEY ─────────────────────────────────────────
-async function verifyApiKey() {
-  const key = $('apiKey').value.trim();
-  const msg = $('apiVerifyMsg');
-  if (!key) { msg.style.display='block'; msg.style.color='#ff5c75'; msg.textContent='⚠ Pega tu API key primero.'; return; }
-  msg.style.display='block'; msg.style.color='rgba(255,255,255,0.5)'; msg.textContent='Verificando...';
-  try {
-    const url = 'https://api.twelvedata.com/time_series?symbol=EURUSD&interval=1min&outputsize=1&apikey=' + key;
-    let json;
-    try {
-      const r = await fetch(url, { mode: 'cors' });
-      json = await r.json();
-    } catch(e) {
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-      const r2 = await fetch(proxy);
-      const w  = await r2.json();
-      json = JSON.parse(w.contents);
-    }
-    if (json.status === 'error') {
-      msg.style.color = '#ff5c75';
-      msg.textContent = '❌ Key inválida: ' + (json.message || 'error desconocido');
-      $('apiStatusPill').textContent = '● ERROR';
-      $('apiStatusPill').className   = 'status-pill err';
-    } else if (json.values) {
-      msg.style.color = '#00ff9d';
-      msg.textContent = '✅ Key válida — datos reales activados. Plan: ' + (json.meta?.type || 'activo');
-      $('apiStatusPill').textContent = '● REAL';
-      $('apiStatusPill').className   = 'status-pill ok';
-    } else {
-      msg.style.color = '#ffcc00';
-      msg.textContent = '⚠ Respuesta inesperada. Intenta analizar directamente.';
-    }
-  } catch(e) {
-    msg.style.color = '#ffcc00';
-    msg.textContent = '⚠ No se pudo verificar (posible bloqueo del navegador). Intenta analizar directamente y revisa el log.';
-  }
-}
-
-// ── API KEY — detecta escritura, pegado y cambio ──────────────
-function updateApiPill() {
-  const pill = $('apiStatusPill');
-  const key  = $('apiKey').value.trim();
-  if (key.length > 10) {
-    pill.textContent  = '● LISTA';
-    pill.className    = 'status-pill ok';
-  } else {
-    pill.textContent  = '● DEMO';
-    pill.className    = 'status-pill demo';
-  }
-}
-$('apiKey').addEventListener('input',  updateApiPill);
-$('apiKey').addEventListener('paste',  function() { setTimeout(updateApiPill, 50); });
-$('apiKey').addEventListener('change', updateApiPill);
-
-// ── FETCH DATOS REALES ────────────────────────────────────────
+// ─── TWELVE DATA API ───────────────────────────────────────────
 async function fetchRealData(symbol, interval, apiKey) {
-  if (symbol.startsWith('OTC:')) return { data: null, source: 'otc' };
+  // OTC siempre simulado
+  if (symbol.startsWith('OTC:')) return { data: null, source: 'simulado' };
+
   const sym = symbol.replace('/', '');
-  const url = 'https://api.twelvedata.com/time_series?symbol=' + sym +
-              '&interval=' + interval + '&outputsize=80&apikey=' + apiKey;
+  const url = `https://api.twelvedata.com/time_series?symbol=${sym}&interval=${interval}&outputsize=60&apikey=${apiKey}`;
+
   try {
-    const resp = await fetch(url, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors'
-    });
-    if (!resp.ok) return { data: null, source: 'error', msg: 'HTTP ' + resp.status };
+    const resp = await fetch(url);
     const json = await resp.json();
-    if (json.status === 'error' || !json.values) {
-      return { data: null, source: 'error', msg: json.message || 'sin datos' };
-    }
+    if (json.status === 'error' || !json.values) return { data: null, source: 'error', msg: json.message };
+
     const candles = json.values.map(v => ({
-      open:     parseFloat(v.open),
-      close:    parseFloat(v.close),
-      high:     parseFloat(v.high),
-      low:      parseFloat(v.low),
-      vol:      parseFloat(v.volume) || (300 + Math.random() * 700),
+      open: parseFloat(v.open),
+      close: parseFloat(v.close),
+      high: parseFloat(v.high),
+      low: parseFloat(v.low),
+      vol: parseFloat(v.volume) || Math.random() * 1000 + 200,
       datetime: v.datetime
     })).reverse();
+
     return { data: candles, source: 'real', meta: json.meta };
   } catch(e) {
-    // CORS o red — intentar con proxy público como fallback
-    try {
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-      const resp2 = await fetch(proxy);
-      const wrapper = await resp2.json();
-      const json = JSON.parse(wrapper.contents);
-      if (json.status === 'error' || !json.values) {
-        return { data: null, source: 'error', msg: json.message || 'sin datos via proxy' };
-      }
-      const candles = json.values.map(v => ({
-        open: parseFloat(v.open), close: parseFloat(v.close),
-        high: parseFloat(v.high), low:   parseFloat(v.low),
-        vol:  parseFloat(v.volume) || (300 + Math.random() * 700),
-        datetime: v.datetime
-      })).reverse();
-      return { data: candles, source: 'real-proxy', meta: json.meta };
-    } catch(e2) {
-      return { data: null, source: 'error', msg: 'CORS bloqueado. Abre el archivo desde un servidor local o usa Chrome sin restricciones.' };
-    }
+    return { data: null, source: 'error', msg: e.message };
   }
 }
 
-// ── DATOS SIMULADOS ───────────────────────────────────────────
-function simCandles(symbol) {
-  const s = symbol.replace('OTC:', '');
+// ─── DATOS SIMULADOS ───────────────────────────────────────────
+function generateSimData(symbol) {
+  const sym = symbol.replace('OTC:','');
   let base = 1.0850;
-  if (s.includes('JPY'))      base = 148.5;
-  else if (s === 'GBP/USD')   base = 1.2700;
-  else if (s === 'AUD/USD')   base = 0.6550;
-  else if (s === 'EUR/GBP')   base = 0.8550;
-  else if (s === 'USD/CAD')   base = 1.3600;
-  else if (s === 'NZD/USD')   base = 0.6050;
-  else if (s === 'BTC/USD')   base = 67500;
-  else if (s === 'ETH/USD')   base = 3400;
-  const out = [];
-  for (let i = 0; i < 80; i++) {
+  if (sym.includes('JPY')) base = 148.5;
+  else if (sym === 'GBP/USD') base = 1.2700;
+  else if (sym === 'AUD/USD') base = 0.6550;
+  else if (sym === 'EUR/GBP') base = 0.8550;
+  else if (sym === 'USD/CAD') base = 1.3600;
+  else if (sym === 'NZD/USD') base = 0.6050;
+  else if (sym === 'BTC/USD') base = 67500;
+  else if (sym === 'ETH/USD') base = 3400;
+
+  const candles = [];
+  for (let i = 0; i < 60; i++) {
     base += (Math.random() - 0.49) * base * 0.0025;
     const o = base, c = base + (Math.random() - 0.49) * base * 0.002;
-    const h = Math.max(o, c) + Math.random() * base * 0.001;
-    const l = Math.min(o, c) - Math.random() * base * 0.001;
-    out.push({ open: o, close: c, high: h, low: l, vol: 200 + Math.random() * 1000 });
+    const h = Math.max(o,c) + Math.random() * base * 0.001;
+    const l = Math.min(o,c) - Math.random() * base * 0.001;
+    candles.push({ open: o, close: c, high: h, low: l, vol: Math.random()*1000+200 });
   }
-  return out;
+  return candles;
 }
 
-// ── INDICADORES ───────────────────────────────────────────────
-
-// RSI — algoritmo exacto de Wilder (igual al de brokers y TradingView)
-function calcRSI(prices, period) {
-  period = period || 14;
-  const c = prices.map(p => p.close);
-  if (c.length < period + 1) return 50;
-
-  // Variaciones precio a precio
-  const changes = [];
-  for (let i = 1; i < c.length; i++) changes.push(c[i] - c[i - 1]);
-
-  // Seed: promedio simple de las primeras `period` variaciones
-  let sumG = 0, sumL = 0;
-  for (let i = 0; i < period; i++) {
-    if (changes[i] > 0) sumG += changes[i];
-    else                sumL += Math.abs(changes[i]);
+// ─── INDICADORES ───────────────────────────────────────────────
+function calcRSI(prices, period=14) {
+  const c = prices.map(p=>p.close);
+  let g=0,l=0;
+  for(let i=1;i<=period;i++){const d=c[i]-c[i-1];d>0?g+=d:l+=Math.abs(d);}
+  let ag=g/period,al=l/period;
+  for(let i=period+1;i<c.length;i++){
+    const d=c[i]-c[i-1];
+    ag=(ag*(period-1)+(d>0?d:0))/period;
+    al=(al*(period-1)+(d<0?Math.abs(d):0))/period;
   }
-  let avgG = sumG / period;
-  let avgL = sumL / period;
+  const rs=al===0?100:ag/al;
+  return 100-100/(1+rs);
+}
 
-  // Suavizado de Wilder para el resto
-  for (let i = period; i < changes.length; i++) {
-    const g = changes[i] > 0 ? changes[i] : 0;
-    const l = changes[i] < 0 ? Math.abs(changes[i]) : 0;
-    avgG = (avgG * (period - 1) + g) / period;
-    avgL = (avgL * (period - 1) + l) / period;
+function calcEMA(closes,period){
+  const k=2/(period+1);let e=closes[0];
+  for(let i=1;i<closes.length;i++)e=closes[i]*k+e*(1-k);
+  return e;
+}
+
+function calcMACD(prices){
+  const c=prices.map(p=>p.close);
+  const e12=calcEMA(c,12),e26=calcEMA(c,26);
+  const ml=e12-e26;
+  // señal aproximada con últimas 9 lecturas de MACD
+  const macdSeries=[];
+  for(let i=26;i<c.length;i++){
+    const s12=calcEMA(c.slice(0,i+1),12),s26=calcEMA(c.slice(0,i+1),26);
+    macdSeries.push(s12-s26);
   }
-
-  if (avgL === 0) return 100;
-  const rs = avgG / avgL;
-  return 100 - (100 / (1 + rs));
+  const sig=calcEMA(macdSeries,9);
+  return {macdLine:ml,signal:sig,histogram:ml-sig};
 }
 
-function calcEMA(closes, period) {
-  const k = 2 / (period + 1);
-  let ema = closes[0];
-  for (let i = 1; i < closes.length; i++) ema = closes[i] * k + ema * (1 - k);
-  return ema;
+function calcBollinger(prices,period=20){
+  const c=prices.slice(-period).map(p=>p.close);
+  const mean=c.reduce((a,b)=>a+b,0)/period;
+  const std=Math.sqrt(c.map(x=>Math.pow(x-mean,2)).reduce((a,b)=>a+b,0)/period);
+  const last=c[c.length-1];
+  const upper=mean+2*std,lower=mean-2*std;
+  const pos=(last-lower)/(upper-lower);
+  return {upper,middle:mean,lower,position:pos,last,std,mean};
 }
 
-function calcMACD(prices) {
-  const c = prices.map(p => p.close);
-  const macdSeries = [];
-  for (let i = 26; i < c.length; i++) {
-    macdSeries.push(calcEMA(c.slice(0, i + 1), 12) - calcEMA(c.slice(0, i + 1), 26));
+function calcStochastic(prices,period=14){
+  const s=prices.slice(-period);
+  const hh=Math.max(...s.map(p=>p.high));
+  const ll=Math.min(...s.map(p=>p.low));
+  const cn=prices[prices.length-1].close;
+  const K=((cn-ll)/(hh-ll))*100;
+  // D = media de últimas 3 K (aprox)
+  const k2=((prices[prices.length-2].close-ll)/(hh-ll))*100;
+  const k3=((prices[prices.length-3].close-ll)/(hh-ll))*100;
+  const D=(K+k2+k3)/3;
+  return {K,D};
+}
+
+function calcFibonacci(prices){
+  const s=prices.slice(-30);
+  const high=Math.max(...s.map(p=>p.high));
+  const low=Math.min(...s.map(p=>p.low));
+  const range=high-low;
+  const last=prices[prices.length-1].close;
+  const lvls={'0%':high,'23.6%':high-range*.236,'38.2%':high-range*.382,'50.0%':high-range*.5,'61.8%':high-range*.618,'78.6%':high-range*.786,'100%':low};
+  let near=null,minD=Infinity;
+  for(const[n,v]of Object.entries(lvls)){const d=Math.abs(last-v);if(d<minD){minD=d;near=n;}}
+  return {levels:lvls,nearestLevel:near,pctFromLevel:minD/range*100,last,high,low,range};
+}
+
+function detectCandle(prices){
+  const [p2,p1,last]=[prices[prices.length-3],prices[prices.length-2],prices[prices.length-1]];
+  const body=Math.abs(last.close-last.open);
+  const range=last.high-last.low;
+  const upper=last.high-Math.max(last.close,last.open);
+  const lower=Math.min(last.close,last.open)-last.low;
+  const isBull=last.close>last.open;
+  const br=range>0?body/range:0;
+  const pats=[];
+
+  if(br<0.12){
+    if(upper>body*2&&lower>body*2) pats.push({name:'Doji Cruz',bias:'neutral',type:'reversal'});
+    else if(lower>upper*2) pats.push({name:'Doji Libélula',bias:'bull',type:'reversal'});
+    else if(upper>lower*2) pats.push({name:'Doji Lápida',bias:'bear',type:'reversal'});
+    else pats.push({name:'Doji',bias:'neutral',type:'reversal'});
   }
-  const ml  = macdSeries[macdSeries.length - 1];
-  const sig = calcEMA(macdSeries, 9);
-  return { macdLine: ml, signal: sig, histogram: ml - sig };
-}
-
-function calcBollinger(prices, period) {
-  period = period || 20;
-  const c    = prices.slice(-period).map(p => p.close);
-  const mean = c.reduce((a, b) => a + b, 0) / period;
-  const std  = Math.sqrt(c.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b, 0) / period);
-  const last = c[c.length - 1];
-  const upper = mean + 2 * std, lower = mean - 2 * std;
-  const pos = (upper - lower) > 0 ? (last - lower) / (upper - lower) : 0.5;
-  return { upper, middle: mean, lower, position: pos, last, std, mean };
-}
-
-function calcStochastic(prices, period) {
-  period = period || 14;
-  const s  = prices.slice(-period);
-  const hh = Math.max.apply(null, s.map(p => p.high));
-  const ll = Math.min.apply(null, s.map(p => p.low));
-  const cn = prices[prices.length - 1].close;
-  const range = hh - ll;
-  const K = range > 0 ? ((cn - ll) / range) * 100 : 50;
-  const k2 = range > 0 ? ((prices[prices.length - 2].close - ll) / range) * 100 : 50;
-  const k3 = range > 0 ? ((prices[prices.length - 3].close - ll) / range) * 100 : 50;
-  const D  = (K + k2 + k3) / 3;
-  return { K, D };
-}
-
-function calcATR(prices, period) {
-  period = period || 14;
-  const trs = prices.slice(-period).map(function(x, i, a) {
-    if (i === 0) return x.high - x.low;
-    const prev = a[i - 1];
-    return Math.max(x.high - x.low, Math.abs(x.high - prev.close), Math.abs(x.low - prev.close));
-  });
-  return trs.reduce((a, b) => a + b, 0) / period;
-}
-
-function calcFibonacci(prices) {
-  const s     = prices.slice(-30);
-  const high  = Math.max.apply(null, s.map(p => p.high));
-  const low   = Math.min.apply(null, s.map(p => p.low));
-  const range = high - low;
-  const last  = prices[prices.length - 1].close;
-  const lvls  = {
-    '0%':    high,
-    '23.6%': high - range * 0.236,
-    '38.2%': high - range * 0.382,
-    '50.0%': high - range * 0.5,
-    '61.8%': high - range * 0.618,
-    '78.6%': high - range * 0.786,
-    '100%':  low
-  };
-  let near = null, minD = Infinity;
-  for (const n in lvls) {
-    const d = Math.abs(last - lvls[n]);
-    if (d < minD) { minD = d; near = n; }
+  if(lower>body*2&&upper<body*.4&&isBull) pats.push({name:'Martillo',bias:'bull',type:'reversal'});
+  if(lower>body*2&&upper<body*.4&&!isBull) pats.push({name:'Martillo Invertido',bias:'bull',type:'reversal'});
+  if(upper>body*2&&lower<body*.4&&!isBull) pats.push({name:'Estrella Fugaz',bias:'bear',type:'reversal'});
+  if(upper>body*2&&lower<body*.4&&isBull) pats.push({name:'Hombre Colgado',bias:'bear',type:'reversal'});
+  if(br>0.75&&isBull) pats.push({name:'Vela Maestra Alcista',bias:'bull',type:'continuation'});
+  if(br>0.75&&!isBull) pats.push({name:'Vela Maestra Bajista',bias:'bear',type:'continuation'});
+  if(p1.close<p1.open&&last.close>last.open&&last.close>p1.open&&last.open<p1.close)
+    pats.push({name:'Envolvente Alcista',bias:'bull',type:'reversal'});
+  if(p1.close>p1.open&&last.close<last.open&&last.close<p1.open&&last.open>p1.close)
+    pats.push({name:'Envolvente Bajista',bias:'bear',type:'reversal'});
+  const pb=Math.abs(p1.close-p1.open);
+  if(pb>0&&body<pb*.35){
+    if(p1.close<p1.open&&last.close>p1.close) pats.push({name:'Harami Alcista',bias:'bull',type:'reversal'});
+    if(p1.close>p1.open&&last.close<p1.close) pats.push({name:'Harami Bajista',bias:'bear',type:'reversal'});
   }
-  return { levels: lvls, nearestLevel: near, pctFromLevel: range > 0 ? minD / range * 100 : 0, last, high, low, range };
-}
-
-function detectCandle(prices) {
-  const last  = prices[prices.length - 1];
-  const prev  = prices[prices.length - 2];
-  const prev2 = prices[prices.length - 3];
-  const body   = Math.abs(last.close - last.open);
-  const range  = last.high - last.low;
-  const upper  = last.high - Math.max(last.close, last.open);
-  const lower  = Math.min(last.close, last.open) - last.low;
-  const isBull = last.close > last.open;
-  const br     = range > 0 ? body / range : 0;
-  const pats   = [];
-
-  if (br < 0.12) {
-    if (upper > body * 2 && lower > body * 2) pats.push({ name: 'Doji Cruz',      bias: 'neutral', type: 'reversal' });
-    else if (lower > upper * 2)               pats.push({ name: 'Doji Libélula',  bias: 'bull',    type: 'reversal' });
-    else if (upper > lower * 2)               pats.push({ name: 'Doji Lápida',    bias: 'bear',    type: 'reversal' });
-    else                                      pats.push({ name: 'Doji',           bias: 'neutral', type: 'reversal' });
-  }
-  if (lower > body * 2 && upper < body * 0.4 && isBull)  pats.push({ name: 'Martillo',           bias: 'bull', type: 'reversal' });
-  if (lower > body * 2 && upper < body * 0.4 && !isBull) pats.push({ name: 'Martillo Invertido', bias: 'bull', type: 'reversal' });
-  if (upper > body * 2 && lower < body * 0.4 && !isBull) pats.push({ name: 'Estrella Fugaz',     bias: 'bear', type: 'reversal' });
-  if (br > 0.75 && isBull)  pats.push({ name: 'Vela Maestra Alcista', bias: 'bull', type: 'continuation' });
-  if (br > 0.75 && !isBull) pats.push({ name: 'Vela Maestra Bajista', bias: 'bear', type: 'continuation' });
-  if (prev.close < prev.open && last.close > last.open && last.close > prev.open && last.open < prev.close)
-    pats.push({ name: 'Envolvente Alcista', bias: 'bull', type: 'reversal' });
-  if (prev.close > prev.open && last.close < last.open && last.close < prev.open && last.open > prev.close)
-    pats.push({ name: 'Envolvente Bajista', bias: 'bear', type: 'reversal' });
-  const pb = Math.abs(prev.close - prev.open);
-  if (pb > 0 && body < pb * 0.35) {
-    if (prev.close < prev.open && last.close > prev.close) pats.push({ name: 'Harami Alcista', bias: 'bull', type: 'reversal' });
-    if (prev.close > prev.open && last.close < prev.close) pats.push({ name: 'Harami Bajista', bias: 'bear', type: 'reversal' });
-  }
-  if (pats.length === 0) pats.push({ name: 'Sin patrón definido', bias: 'neutral', type: 'none' });
+  if(pats.length===0) pats.push({name:'Vela sin patrón definido',bias:'neutral',type:'none'});
   return pats;
 }
 
-function calcVolume(prices) {
-  const r = prices.slice(-5), p = prices.slice(-10, -5);
-  const ar = r.reduce((a, x) => a + x.vol, 0) / 5;
-  const ap = p.reduce((a, x) => a + x.vol, 0) / 5;
-  return { ratio: ar / ap, avgRecent: ar, avgPrior: ap };
+function calcVolume(prices){
+  const r=prices.slice(-5),p=prices.slice(-10,-5);
+  const ar=r.reduce((a,x)=>a+x.vol,0)/5;
+  const ap=p.reduce((a,x)=>a+x.vol,0)/5;
+  return {ratio:ar/ap,avgRecent:ar,avgPrior:ap};
 }
 
-function calcTrend(prices) {
-  const c = prices.slice(-20).map(p => p.close);
-  const n = c.length;
-  const sx  = n * (n - 1) / 2;
-  const sy  = c.reduce((a, b) => a + b, 0);
-  const sxy = c.reduce((acc, y, x) => acc + x * y, 0);
-  const sx2 = c.reduce((acc, _, x) => acc + x * x, 0);
-  const slope = (n * sxy - sx * sy) / (n * sx2 - sx * sx);
-  const mean  = sy / n;
-  return { slope, slopePct: (slope / mean) * 100 };
+function calcTrend(prices){
+  const c=prices.slice(-20).map(p=>p.close);
+  const n=c.length;
+  const sx=n*(n-1)/2,sy=c.reduce((a,b)=>a+b,0);
+  const sxy=c.reduce((acc,y,x)=>acc+x*y,0);
+  const sx2=c.reduce((acc,_,x)=>acc+x*x,0);
+  const slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  const mean=sy/n;
+  return {slope,slopePct:(slope/mean)*100};
 }
 
-// ── SCORING ───────────────────────────────────────────────────
-function scoreSignal(ind) {
-  var bull = 0, bear = 0, total = 0;
-  var rsi = ind.rsi, macd = ind.macd, boll = ind.boll, stoch = ind.stoch;
-  var fib = ind.fib, patterns = ind.patterns, vol = ind.vol, trend = ind.trend;
+// ─── SCORING ───────────────────────────────────────────────────
+function scoreSignal(ind){
+  let bull=0,bear=0,total=0;
+  const {rsi,macd,boll,stoch,fib,patterns,vol,trend}=ind;
 
   // RSI
-  if (rsi < 25) { bull += 3.5; } else if (rsi < 35) { bull += 2; } else if (rsi < 45) { bull += 0.75; }
-  else if (rsi > 75) { bear += 3.5; } else if (rsi > 65) { bear += 2; } else if (rsi > 55) { bear += 0.75; }
-  total += 3.5;
+  if(rsi<25){bull+=3.5;}else if(rsi<35){bull+=2;}else if(rsi<45){bull+=0.75;}
+  else if(rsi>75){bear+=3.5;}else if(rsi>65){bear+=2;}else if(rsi>55){bear+=0.75;}
+  total+=3.5;
 
   // MACD
-  if (macd.histogram > 0 && macd.macdLine > macd.signal) { bull += 2.5; }
-  else if (macd.histogram < 0 && macd.macdLine < macd.signal) { bear += 2.5; }
-  else if (macd.histogram > 0) { bull += 1; } else { bear += 1; }
-  total += 2.5;
+  if(macd.histogram>0&&macd.macdLine>macd.signal){bull+=2.5;}
+  else if(macd.histogram<0&&macd.macdLine<macd.signal){bear+=2.5;}
+  else if(macd.histogram>0){bull+=1;}else{bear+=1;}
+  total+=2.5;
 
   // Bollinger
-  if (boll.position < 0.05) { bull += 3; } else if (boll.position < 0.2) { bull += 1.5; }
-  else if (boll.position > 0.95) { bear += 3; } else if (boll.position > 0.8) { bear += 1.5; }
-  total += 3;
+  if(boll.position<0.05){bull+=3;}else if(boll.position<0.2){bull+=1.5;}
+  else if(boll.position>0.95){bear+=3;}else if(boll.position>0.8){bear+=1.5;}
+  total+=3;
 
-  // Stoch
-  if (stoch.K < 20 && stoch.K > stoch.D) { bull += 2.5; } else if (stoch.K < 20) { bull += 1.5; }
-  else if (stoch.K > 80 && stoch.K < stoch.D) { bear += 2.5; } else if (stoch.K > 80) { bear += 1.5; }
-  total += 2.5;
+  // Stochastic
+  if(stoch.K<20&&stoch.K>stoch.D){bull+=2.5;}else if(stoch.K<20){bull+=1.5;}
+  else if(stoch.K>80&&stoch.K<stoch.D){bear+=2.5;}else if(stoch.K>80){bear+=1.5;}
+  total+=2.5;
 
   // Fibonacci
-  if (['61.8%', '78.6%'].includes(fib.nearestLevel) && fib.pctFromLevel < 4) { bull += 3; }
-  else if (['61.8%', '78.6%'].includes(fib.nearestLevel) && fib.pctFromLevel < 8) { bull += 1.5; }
-  else if (['23.6%', '0%'].includes(fib.nearestLevel) && fib.pctFromLevel < 4) { bear += 2.5; }
-  else if (fib.nearestLevel === '38.2%' && fib.pctFromLevel < 4) { bear += 1.5; }
-  total += 3;
+  if(['61.8%','78.6%'].includes(fib.nearestLevel)&&fib.pctFromLevel<4){bull+=3;}
+  else if(['61.8%','78.6%'].includes(fib.nearestLevel)&&fib.pctFromLevel<8){bull+=1.5;}
+  else if(['23.6%','0%'].includes(fib.nearestLevel)&&fib.pctFromLevel<4){bear+=2.5;}
+  else if(['38.2%'].includes(fib.nearestLevel)&&fib.pctFromLevel<4){bear+=1.5;}
+  else if(fib.nearestLevel==='50.0%'&&fib.pctFromLevel<3){bull+=.5;bear+=.5;}
+  total+=3;
 
   // Candle
-  var pat = patterns[0], pw = pat.type === 'reversal' ? 2.5 : 1.5;
-  if (pat.bias === 'bull') bull += pw; else if (pat.bias === 'bear') bear += pw;
-  total += 2.5;
+  const p=patterns[0];
+  if(p.bias==='bull'){bull+=p.type==='reversal'?2.5:1.5;}
+  else if(p.bias==='bear'){bear+=p.type==='reversal'?2.5:1.5;}
+  total+=2.5;
 
-  // Volume
-  if (vol.ratio > 1.5) { if (trend.slope > 0) bull += 1.5; else if (trend.slope < 0) bear += 1.5; }
-  else if (vol.ratio > 1.2) { if (trend.slope > 0) bull += 0.75; else if (trend.slope < 0) bear += 0.75; }
-  total += 1.5;
+  // Volume momentum
+  if(vol.ratio>1.5){if(trend.slope>0)bull+=1.5;else if(trend.slope<0)bear+=1.5;}
+  else if(vol.ratio>1.2){if(trend.slope>0)bull+=.75;else if(trend.slope<0)bear+=.75;}
+  total+=1.5;
 
   // Trend
-  if (trend.slopePct > 0.1) { bull += 2; } else if (trend.slopePct > 0.03) { bull += 1; }
-  else if (trend.slopePct < -0.1) { bear += 2; } else if (trend.slopePct < -0.03) { bear += 1; }
-  total += 2;
+  if(trend.slopePct>0.08){bull+=2;}else if(trend.slopePct>0.03){bull+=1;}
+  else if(trend.slopePct<-0.08){bear+=2;}else if(trend.slopePct<-0.03){bear+=1;}
+  total+=2;
 
-  var net  = bull - bear;
-  var base = 50 + (Math.abs(net) / total) * 44;
-  var pct  = Math.min(93, Math.max(51, Math.round(base)));
-  var dir  = net > 1.5 ? 'call' : net < -1.5 ? 'put' : 'neutral';
-  return { dir, pct, bull, bear };
+  const net=bull-bear;
+  const base=50+(Math.abs(net)/total)*45;
+  const noise=(Math.random()-0.5)*4;
+  const pct=Math.min(94,Math.max(51,base+noise));
+  const dir=net>1.5?'call':net<-1.5?'put':'neutral';
+  return {dir,pct:Math.round(pct),bull,bear,total};
 }
 
-// ── EXPLICACIÓN PRINCIPAL ─────────────────────────────────────
-function buildExplanation(finalDir, sc, ind, rsi) {
-  var isCall = finalDir === 'call', isNeutral = finalDir === 'neutral';
-  var dirLbl   = isCall ? '▲ CALL' : isNeutral ? '⚪ SIN SEÑAL' : '▼ PUT';
-  var dirColor = isCall ? 'var(--green)' : isNeutral ? 'var(--amber)' : 'var(--red)';
-  var pat = ind.patterns[0];
+// ─── EXPLICACIONES ─────────────────────────────────────────────
+const indicatorInfo = {
+  RSI: {
+    what: 'El RSI (Relative Strength Index) mide la velocidad y magnitud de los movimientos de precio en una escala de 0 a 100. Fue creado por J. Welles Wilder y es uno de los osciladores más usados en el mundo.',
+    how: 'Calcula el promedio de ganancias vs pérdidas en los últimos 14 períodos. Un RSI bajo indica que el activo ha caído mucho y podría rebotar (sobrevendido). Un RSI alto indica que subió mucho y podría caer (sobrecomprado).',
+    tip: '💡 Aprende esto: RSI extremo solo es señal de entrada cuando coincide con otros indicadores. El RSI puede mantenerse en zona extrema mucho tiempo en tendencias fuertes.'
+  },
+  MACD: {
+    what: 'El MACD (Moving Average Convergence Divergence) mide la diferencia entre dos medias móviles exponenciales (EMA de 12 y 26 períodos). El histograma muestra la fuerza del momentum.',
+    how: 'Cuando la línea MACD cruza por encima de la línea señal y el histograma es positivo, hay momentum alcista. Cuando cruza hacia abajo, hay momentum bajista. Es especialmente útil para confirmar la dirección de la tendencia.',
+    tip: '💡 El MACD funciona mejor en tendencias. En mercados laterales genera muchas señales falsas. Por eso lo combinamos con RSI y Bollinger.'
+  },
+  Bollinger: {
+    what: 'Las Bandas de Bollinger son canales dinámicos calculados con la media móvil de 20 períodos más/menos 2 desviaciones estándar. Se expanden cuando hay volatilidad y se contraen cuando el mercado está quieto.',
+    how: 'Cuando el precio toca o supera la banda inferior, estadísticamente el precio tiene alta probabilidad de volver al centro (señal CALL). Cuando toca la banda superior, puede revertir a la baja (señal PUT). La posición del precio dentro del canal te dice dónde estás.',
+    tip: '💡 El "squeeze" de Bollinger (bandas muy juntas) suele preceder un movimiento fuerte. Observa en tu plataforma cuando las bandas se aprietan.'
+  },
+  Estocástico: {
+    what: 'El Estocástico compara el precio de cierre actual con el rango de precios de los últimos 14 períodos. Tiene dos líneas: K (rápida) y D (lenta, media de K).',
+    how: 'Cuando K < 20 y cruza D hacia arriba: sobrevendido con rebote → CALL. Cuando K > 80 y cruza D hacia abajo: sobrecomprado con caída → PUT. El cruce de K y D es la señal de entrada precisa.',
+    tip: '💡 El cruce de K sobre D en zona de sobrecompra/sobreventa es uno de los patrones de entrada más clásicos. Búscalo visualmente en tu gráfico.'
+  },
+  Fibonacci: {
+    what: 'Los niveles de Fibonacci son zonas de soporte y resistencia basadas en la secuencia matemática de Fibonacci. Los traders de todo el mundo los usan, lo que genera una profecía autocumplida.',
+    how: 'Se traza desde el máximo al mínimo de un swing. Los niveles 38.2%, 50%, 61.8% y 78.6% son zonas donde el precio tiende a frenarse o rebotar. El 61.8% (ratio áureo) es el más respetado.',
+    tip: '💡 Aprende a trazar Fibonacci en tu plataforma. Cuando el precio retrocede exactamente al 61.8% y aparece un Doji o Martillo ahí, es una de las entradas más poderosas que existen.'
+  },
+  Vela: {
+    what: 'Las velas japonesas (candlestick) son representaciones visuales del precio: muestran apertura, cierre, máximo y mínimo. Ciertos patrones de 1 a 3 velas tienen alta predictibilidad estadística.',
+    how: 'Una Vela Maestra (cuerpo grande, sin mechas) indica momentum claro. Un Doji (sin cuerpo) indica indecisión y posible reversión. Un Martillo en soporte es señal alcista fuerte. Una Envolvente cambia completamente la narrativa del precio.',
+    tip: '💡 Los patrones de velas son más poderosos cuando aparecen EN niveles clave: soporte, resistencia, o retrocesos de Fibonacci. Una vela sola en medio de la nada vale menos.'
+  },
+  Volumen: {
+    what: 'El volumen mide cuántos contratos o unidades se han negociado. El precio sin volumen es como un rumor sin confirmación. El volumen valida o invalida un movimiento.',
+    how: 'Un ratio > 1.5x significa que se está operando 50% más que el promedio reciente, lo que da fuerza al movimiento actual. Un movimiento alcista con volumen alto es más confiable que uno con volumen bajo.',
+    tip: '💡 En Forex y binarias el volumen es relativo, no absoluto. Lo que importa es si aumentó o bajó respecto al promedio. Volumen alto en reversión = señal potente.'
+  },
+  Tendencia: {
+    what: 'La tendencia lineal calcula la dirección general del precio en las últimas 20 velas usando regresión lineal. Te dice si el mercado está subiendo, bajando o lateral.',
+    how: 'Una pendiente positiva confirma sesgo alcista. Una negativa confirma sesgo bajista. Las señales a favor de la tendencia son más fiables que las señales en contra (contrarian). "The trend is your friend."',
+    tip: '💡 Regla de oro: en M15 o superior, opera siempre a favor de la tendencia hasta que haya una señal clara de agotamiento (RSI extremo + patrón reversal + ruptura de Fibonacci).'
+  }
+};
 
-  var reasons = [];
-  if (rsi < 40)      reasons.push({ t: 'RSI ' + rsi.toFixed(1) + ' — zona sobrevendida. El precio ha caído con fuerza y los vendedores están agotados. Históricamente el precio tiende a rebotar desde aquí.', d: 'bull' });
-  else if (rsi > 60) reasons.push({ t: 'RSI ' + rsi.toFixed(1) + ' — zona sobrecomprada. Los compradores pierden fuerza. Alta probabilidad de corrección bajista.', d: 'bear' });
-  else               reasons.push({ t: 'RSI ' + rsi.toFixed(1) + ' — zona neutra (40-60). No hay señal extrema de oscilador.', d: 'neut' });
+function buildIndicatorExplanation(name, value, signal, bias, readingText) {
+  const info = indicatorInfo[name] || {};
+  const biasClass = bias === 'bull' ? 'bull' : bias === 'bear' ? 'bear' : 'neut';
+  return `
+    <div class="exp-title">¿Qué es el ${name}?</div>
+    <div class="exp-body">${info.what || ''}</div>
+    <div class="exp-body" style="margin-top:8px;">${info.how || ''}</div>
+    <div class="exp-reading ${biasClass}">${readingText}</div>
+    <div class="exp-tip">${info.tip || ''}</div>
+  `;
+}
 
-  if (ind.macd.histogram > 0) reasons.push({ t: 'MACD positivo — momentum alcista confirmado. La EMA rápida está por encima de la lenta. Los compradores controlan el momentum del precio.', d: 'bull' });
-  else                        reasons.push({ t: 'MACD negativo — momentum bajista. Los vendedores controlan el momentum del mercado en este momento.', d: 'bear' });
+function buildSignalExplanation(dir, score, ind) {
+  const {rsi, macd, boll, stoch, fib, patterns, vol, trend} = ind;
+  const isCall = dir === 'call';
+  const isSin = dir === 'neutral';
+  const pat = patterns[0];
 
-  if (ind.boll.position < 0.25)      reasons.push({ t: 'Precio en ' + (ind.boll.position * 100).toFixed(0) + '% del canal Bollinger — cerca de la banda inferior. Zona estadísticamente de valor, el precio tiende a revertir hacia la media.', d: 'bull' });
-  else if (ind.boll.position > 0.75) reasons.push({ t: 'Precio en ' + (ind.boll.position * 100).toFixed(0) + '% del canal Bollinger — cerca de la banda superior. Zona de agotamiento alcista, alta probabilidad de corrección.', d: 'bear' });
+  const reasons = [];
+  const dotClass = isCall ? 'bull' : isSin ? 'neut' : 'bear';
 
-  if (ind.stoch.K < 20)      reasons.push({ t: 'Estocástico K=' + ind.stoch.K.toFixed(0) + ' en sobrevendido. Si K cruza D hacia arriba: señal de entrada CALL confirmada.', d: 'bull' });
-  else if (ind.stoch.K > 80) reasons.push({ t: 'Estocástico K=' + ind.stoch.K.toFixed(0) + ' en sobrecomprado. Si K cruza D hacia abajo: señal de entrada PUT confirmada.', d: 'bear' });
+  if (rsi < 40) reasons.push({ text: `RSI en ${rsi.toFixed(1)} — el activo ha caído con fuerza y entra en zona de sobrevendido. Históricamente, desde este nivel el precio tiende a recuperarse.`, dot: 'bull' });
+  else if (rsi > 60) reasons.push({ text: `RSI en ${rsi.toFixed(1)} — el activo ha subido con fuerza y está sobrecomprado. El momentum alcista pierde fuerza y aumenta la probabilidad de caída.`, dot: 'bear' });
+  else reasons.push({ text: `RSI en ${rsi.toFixed(1)} — zona neutra, no hay señal extrema de sobrecompra ni sobreventa.`, dot: 'neut' });
 
-  if (ind.fib.pctFromLevel < 8) {
-    var fibBull = ['61.8%', '78.6%', '100%'].includes(ind.fib.nearestLevel);
-    reasons.push({ t: 'Precio a ' + ind.fib.pctFromLevel.toFixed(1) + '% del nivel Fibonacci ' + ind.fib.nearestLevel + '. ' + (fibBull ? 'El 61.8% (ratio áureo) es el soporte de reversión más poderoso.' : 'Este nivel actúa como resistencia, favorece caída.'), d: fibBull ? 'bull' : 'bear' });
+  if (macd.histogram > 0) reasons.push({ text: `MACD con histograma positivo — el momentum es alcista. La EMA rápida (12) está por encima de la lenta (26), lo que confirma presión compradora.`, dot: 'bull' });
+  else reasons.push({ text: `MACD con histograma negativo — momentum bajista. Las medias móviles muestran presión vendedora dominante.`, dot: 'bear' });
+
+  if (boll.position < 0.25) reasons.push({ text: `Precio cerca de la banda inferior de Bollinger (posición ${(boll.position*100).toFixed(0)}%) — el precio está estadísticamente barato relativo a su media reciente, favorece rebote al alza.`, dot: 'bull' });
+  else if (boll.position > 0.75) reasons.push({ text: `Precio cerca de la banda superior de Bollinger (posición ${(boll.position*100).toFixed(0)}%) — el precio está estadísticamente caro, favorece corrección a la baja.`, dot: 'bear' });
+
+  if (stoch.K < 30 || stoch.K > 70) {
+    const stochMsg = stoch.K < 30
+      ? `Estocástico K=${stoch.K.toFixed(0)} en zona de sobrevendido. Si K cruza por encima de D (${stoch.D.toFixed(0)}), es señal de compra confirmada.`
+      : `Estocástico K=${stoch.K.toFixed(0)} en zona de sobrecomprado. Si K cruza por debajo de D (${stoch.D.toFixed(0)}), es señal de venta confirmada.`;
+    reasons.push({ text: stochMsg, dot: stoch.K < 30 ? 'bull' : 'bear' });
   }
 
-  if (pat.bias !== 'neutral') reasons.push({ t: 'Patrón "' + pat.name + '" — ' + (pat.type === 'reversal' ? 'reversión' : 'continuación') + ' con sesgo ' + (pat.bias === 'bull' ? 'alcista. Los compradores tomaron control en esta vela.' : 'bajista. Los vendedores tomaron control en esta vela.'), d: pat.bias });
+  if (fib.pctFromLevel < 8) reasons.push({ text: `El precio está a solo ${fib.pctFromLevel.toFixed(1)}% del nivel Fibonacci ${fib.nearestLevel} — esta es una zona clave donde el precio tiende a reaccionar. ${['61.8%','78.6%'].includes(fib.nearestLevel) ? 'El 61.8% (ratio áureo) es el nivel más respetado.' : ''}`, dot: ['61.8%','78.6%','100%'].includes(fib.nearestLevel) ? 'bull' : 'bear' });
 
-  if (ind.vol.ratio > 1.3) reasons.push({ t: 'Volumen ' + ind.vol.ratio.toFixed(1) + 'x superior al promedio. El movimiento tiene respaldo real — señal más confiable.', d: isCall ? 'bull' : 'bear' });
+  if (pat.bias !== 'neutral') reasons.push({ text: `Patrón de vela "${pat.name}" detectado — ${pat.type === 'reversal' ? 'señal de reversión' : 'señal de continuación'} con sesgo ${pat.bias === 'bull' ? 'alcista' : 'bajista'}. Este patrón indica que los ${pat.bias === 'bull' ? 'compradores' : 'vendedores'} están tomando control.`, dot: pat.bias });
 
-  if (Math.abs(ind.trend.slopePct) > 0.03) reasons.push({ t: 'Tendencia ' + (ind.trend.slopePct > 0 ? 'alcista' : 'bajista') + ' confirmada por regresión lineal (' + (ind.trend.slopePct > 0 ? '+' : '') + ind.trend.slopePct.toFixed(3) + '% por vela). Opera siempre a favor de la tendencia.', d: ind.trend.slopePct > 0 ? 'bull' : 'bear' });
+  if (vol.ratio > 1.3) reasons.push({ text: `Volumen ${vol.ratio.toFixed(1)}x superior al promedio — confirma que hay participación real detrás del movimiento. Las señales con volumen alto tienen mayor fiabilidad.`, dot: isCall ? 'bull' : 'bear' });
 
-  var bullCount = reasons.filter(r => r.d === (isCall ? 'bull' : 'bear')).length;
-  var lesson = isCall
-    ? '<strong>Lección:</strong> Esta señal CALL surge porque ' + bullCount + ' factores coinciden en dirección alcista. En la plataforma busca que el precio esté rebotando en soporte. Entra al inicio de la siguiente vela.'
-    : isNeutral
-    ? '<strong>Lección:</strong> Los indicadores no alcanzan el umbral mínimo de confluencia. En trading profesional, NO operar cuando no hay claridad es tan importante como operar bien. Espera.'
-    : '<strong>Lección:</strong> Esta señal PUT surge porque ' + bullCount + ' factores coinciden en dirección bajista. Busca que el precio esté rechazando una resistencia y entra al inicio de la siguiente vela.';
+  if (Math.abs(trend.slopePct) > 0.03) reasons.push({ text: `Tendencia ${trend.slopePct > 0 ? 'alcista' : 'bajista'} confirmada por regresión lineal (pendiente ${trend.slopePct > 0 ? '+' : ''}${trend.slopePct.toFixed(3)}% por vela). Operar a favor de la tendencia aumenta la probabilidad.`, dot: trend.slopePct > 0 ? 'bull' : 'bear' });
 
-  return '<div class="exp-hdr"><span class="exp-icon">🧠</span><span class="exp-title">¿Por qué se genera esta señal?</span></div>' +
-    '<div class="exp-body">Señal <strong style="color:' + dirColor + '">' + dirLbl + '</strong> — ' + reasons.length + ' factores analizados, efectividad estimada: <strong>' + sc.pct + '%</strong>.</div>' +
-    '<div class="exp-reasons">' + reasons.map(r => '<div class="exp-r"><div class="exp-r-dot ' + r.d + '"></div><span>' + r.t + '</span></div>').join('') + '</div>' +
-    '<div class="exp-lesson">' + lesson + '</div>';
+  const dirLabel = isCall ? '▲ CALL' : isSin ? '⚪ SIN SEÑAL' : '▼ PUT';
+  const dirColor = isCall ? 'var(--green)' : isSin ? 'var(--amber)' : 'var(--red)';
+
+  const lesson = isCall
+    ? `<strong style="color:var(--text);">Lección:</strong> <span>Esta señal CALL se genera porque la mayoría de los indicadores muestran condiciones de sobreventa o momentum alcista. En la plataforma, busca que el precio esté rebotando en soporte y entra al inicio de la siguiente vela.</span>`
+    : isSin
+    ? `<strong style="color:var(--text);">Lección:</strong> <span>Los indicadores no llegan al umbral mínimo de confluencia. En trading profesional, NO operar cuando no hay claridad es tan importante como operar bien. Espera una señal más clara.</span>`
+    : `<strong style="color:var(--text);">Lección:</strong> <span>Esta señal PUT se genera porque la mayoría de indicadores muestran sobrecompra o momentum bajista. En la plataforma, busca que el precio esté rechazando una resistencia y entra al inicio de la siguiente vela.</span>`;
+
+  return `
+    <div class="se-header">
+      <span class="se-icon">🧠</span>
+      <span class="se-title">¿Por qué se genera esta señal?</span>
+    </div>
+    <div class="se-body">La señal <strong style="color:${dirColor}">${dirLabel}</strong> se genera porque <strong>${reasons.filter(r=>r.dot===(isCall?'bull':'bear')).length} de los 8 indicadores</strong> coinciden en la misma dirección (efectividad estimada: <strong>${score.pct}%</strong>). Aquí está el razonamiento completo:</div>
+    <div class="se-reasons">
+      ${reasons.map(r=>`
+        <div class="se-reason">
+          <div class="se-reason-dot ${r.dot}"></div>
+          <span>${r.text}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="se-lesson">${lesson}</div>
+  `;
 }
 
-// ── ANÁLISIS PRINCIPAL ────────────────────────────────────────
+// ─── ANÁLISIS PRINCIPAL ────────────────────────────────────────
 async function runAnalysis() {
-  var btn = $('analyzeBtn');
+  const btn = $('analyzeBtn');
+  const overlay = $('loadingOverlay');
+  const logSection = $('logSection');
+  const loadingStep = $('loadingStep');
+
   btn.disabled = true;
+  $('signalBox').className = 'signal-box';
+  $('priceBar').className = 'price-bar';
+  logSection.className = 'log-section show';
+  overlay.className = 'loading-overlay show';
+  logSection.innerHTML = '';
 
-  // Resetear UI
-  $('signalBox').className  = 'signal-box';
-  $('priceBar').className   = 'pricebar';
-  $('logEl').className      = 'log show';
-  $('logEl').innerHTML      = '';
-  $('loader').className     = 'loader show';
-  $('histEl').className     = 'hist';
+  const apiKey = $('apiKey').value.trim();
+  const assetRaw = $('asset').value;
+  const timeframe = $('timeframe').value;
+  const expiry = $('expiry').value;
+  const threshold = parseInt($('threshold').value);
+  const isOTC = assetRaw.startsWith('OTC:');
+  const assetDisplay = assetRaw.replace('OTC:','');
 
-  try {
-    var apiKey    = $('apiKey').value.trim();
-    var assetRaw  = $('asset').value;
-    var timeframe = $('timeframe').value;
-    var expiry    = $('expiry').value;
-    var threshold = parseInt($('threshold').value) || 68;
-    var isOTC     = assetRaw.startsWith('OTC:');
-    var assetDisp = assetRaw.replace('OTC:', '');
-    var isJPY     = assetRaw.includes('JPY');
-    var isCrypto  = assetRaw.includes('BTC') || assetRaw.includes('ETH');
-    var decimals  = isJPY ? 3 : isCrypto ? 2 : 5;
+  log(`Iniciando análisis: ${assetRaw} · ${timeframe}`, 'info');
+  await sleep(200);
 
-    addLog('Iniciando análisis: ' + assetRaw + ' · ' + timeframe, 'info');
-    await sleep(150);
-
-    // ── Fetch datos ──────────────────────────────────────────
-    var prices, dataSource = 'simulado';
-
-    if (apiKey && !isOTC) {
-      setStep('Conectando con Twelve Data API...');
-      addLog('Solicitando datos reales...', 'info');
-      var result = await fetchRealData(assetRaw, timeframe, apiKey);
-      if (result.data && result.data.length >= 30) {
-        prices     = result.data;
-        dataSource = 'real';
-        var lastC  = prices[prices.length - 1];
-        var prevC  = prices[prices.length - 2];
-        var chg    = ((lastC.close - prevC.close) / prevC.close) * 100;
-        $('pbSym').textContent   = assetDisp + ' · ' + timeframe;
-        $('pbPrice').textContent = lastC.close.toFixed(decimals);
-        $('pbChg').textContent   = (chg >= 0 ? '+' : '') + chg.toFixed(3) + '%';
-        $('pbChg').className     = 'pb-chg ' + (chg >= 0 ? 'up' : 'dn');
-        $('pbMeta').textContent  = 'Vela: ' + (lastC.datetime || '—');
-        $('pbSrc').textContent   = '● REAL';
-        $('pbSrc').style.color   = 'var(--green)';
-        $('priceBar').className  = 'pricebar show';
-        $('apiStatusPill').textContent = '● REAL';
-        $('apiStatusPill').className   = 'status-pill ok';
-        addLog('Datos reales: ' + prices.length + ' velas · precio: ' + lastC.close.toFixed(decimals) + ' · ' + (lastC.datetime || ''), 'ok');
-      } else {
-        addLog('API: ' + (result.msg || 'sin datos') + ' → modo simulación', 'warn');
-        prices = simCandles(assetRaw);
-        $('apiStatusPill').textContent = '● DEMO';
-        $('apiStatusPill').className   = 'status-pill demo';
-      }
+  // Fetch de datos
+  let prices, dataSource='simulado';
+  if (apiKey && !isOTC) {
+    loadingStep.textContent = `Conectando con Twelve Data API...`;
+    log('Solicitando datos reales a Twelve Data...', 'info');
+    await sleep(300);
+    const result = await fetchRealData(assetRaw, timeframe, apiKey);
+    if (result.data && result.data.length >= 30) {
+      prices = result.data;
+      dataSource = 'real';
+      const lastC = prices[prices.length-1];
+      const prevC = prices[prices.length-2];
+      const chg = ((lastC.close - prevC.close) / prevC.close * 100);
+      const isJPY = assetRaw.includes('JPY');
+      const isCrypto = assetRaw.includes('BTC') || assetRaw.includes('ETH');
+      const decimals = isJPY ? 3 : isCrypto ? 2 : 5;
+      $('priceMain').textContent = lastC.close.toFixed(decimals);
+      $('priceAsset').textContent = assetDisplay;
+      $('priceChange').textContent = (chg>=0?'+':'')+chg.toFixed(3)+'%';
+      $('priceChange').className = 'price-change ' + (chg>=0?'up':'down');
+      $('priceMeta').textContent = 'Última vela: ' + (prices[prices.length-1].datetime || '—');
+      $('priceSource').textContent = '● REAL';
+      $('priceSource').style.color = 'var(--green)';
+      $('priceBar').className = 'price-bar show';
+      $('apiStatus').textContent = '● REAL';
+      $('apiStatus').className = 'api-status ok';
+      log(`Datos reales recibidos: ${prices.length} velas · último precio: ${lastC.close.toFixed(decimals)}`, 'ok');
     } else {
-      if (!apiKey) addLog('Sin API key → modo simulación', 'warn');
-      else          addLog('OTC → modo simulación', 'info');
-      prices = simCandles(assetRaw);
+      log(`API: ${result.msg || 'sin datos suficientes'} → usando simulación`, 'warn');
+      prices = generateSimData(assetRaw);
+      $('apiStatus').textContent = result.source==='error'?'● ERROR':'● DEMO';
+      $('apiStatus').className = result.source==='error'?'api-status err':'api-status demo';
+      $('priceSource').textContent = '● DEMO';
+      $('priceBar').className = 'price-bar show';
+      const lp = prices[prices.length-1];
+      const isJPY = assetRaw.includes('JPY');
+      const isCrypto = assetRaw.includes('BTC')||assetRaw.includes('ETH');
+      $('priceMain').textContent = lp.close.toFixed(isJPY?3:isCrypto?2:5);
+      $('priceAsset').textContent = assetDisplay + ' (simulado)';
+      $('priceChange').textContent = '±0.00%';
+      $('priceChange').className = 'price-change up';
+      $('priceMeta').textContent = 'datos simulados';
     }
-
-    // Mostrar precio simulado si no está visible
-    if ($('priceBar').className === 'pricebar') {
-      var lp = prices[prices.length - 1];
-      $('pbSym').textContent   = assetDisp + ' (simulado)';
-      $('pbPrice').textContent = lp.close.toFixed(decimals);
-      $('pbChg').textContent   = '±0.00%';
-      $('pbChg').className     = 'pb-chg up';
-      $('pbMeta').textContent  = 'datos simulados';
-      $('pbSrc').textContent   = '● DEMO';
-      $('priceBar').className  = 'pricebar show';
-    }
-
-    // ── Calcular indicadores ─────────────────────────────────
-    setStep('Calculando RSI (Wilder)...');
-    await sleep(180);
-    var rsi = calcRSI(prices, 14);
-    addLog('RSI(14) = ' + rsi.toFixed(2) + (rsi < 30 ? ' ← SOBREVENDIDO' : rsi > 70 ? ' ← SOBRECOMPRADO' : ''), rsi < 30 || rsi > 70 ? 'ok' : '');
-
-    setStep('Calculando MACD...');
-    await sleep(180);
-    var macd = calcMACD(prices);
-    addLog('MACD hist = ' + (macd.histogram > 0 ? '+' : '') + macd.histogram.toFixed(6), macd.histogram > 0 ? 'ok' : 'warn');
-
-    setStep('Calculando Bollinger...');
-    await sleep(150);
-    var boll = calcBollinger(prices, 20);
-    addLog('Bollinger pos = ' + (boll.position * 100).toFixed(1) + '%', boll.position < 0.15 || boll.position > 0.85 ? 'ok' : '');
-
-    setStep('Calculando Estocástico...');
-    await sleep(150);
-    var stoch = calcStochastic(prices, 14);
-    addLog('Estocástico K=' + stoch.K.toFixed(1) + ' D=' + stoch.D.toFixed(1), stoch.K < 20 || stoch.K > 80 ? 'ok' : '');
-
-    setStep('Calculando Fibonacci...');
-    await sleep(150);
-    var fib = calcFibonacci(prices);
-    addLog('Fibonacci: ' + fib.nearestLevel + ' (dist ' + fib.pctFromLevel.toFixed(1) + '%)', fib.pctFromLevel < 5 ? 'ok' : '');
-
-    setStep('Detectando patrones de velas...');
-    await sleep(200);
-    var patterns = detectCandle(prices);
-    addLog('Patrón: ' + patterns[0].name + ' → ' + patterns[0].bias, patterns[0].bias !== 'neutral' ? 'ok' : 'warn');
-
-    setStep('Analizando volumen y tendencia...');
-    await sleep(150);
-    var vol   = calcVolume(prices);
-    var trend = calcTrend(prices);
-    addLog('Volumen ' + vol.ratio.toFixed(2) + 'x · Tendencia ' + (trend.slopePct > 0 ? '+' : '') + trend.slopePct.toFixed(3) + '%/vela', vol.ratio > 1.2 ? 'ok' : '');
-
-    setStep('Calculando ATR y confluencia...');
-    await sleep(200);
-    var atr   = calcATR(prices, 14);
-    var indicators = { rsi, macd, boll, stoch, fib, patterns, vol, trend };
-    var sc    = scoreSignal(indicators);
-    addLog('━━ RESULTADO: ' + sc.dir.toUpperCase() + ' · ' + sc.pct + '% ━━', sc.pct >= threshold ? 'ok' : 'warn');
-
-    $('loader').className = 'loader';
-
-    // ── Render señal ─────────────────────────────────────────
-    var finalDir = sc.pct < threshold ? 'neutral' : sc.dir;
-    var sb = $('signalBox');
-    sb.className = 'signal-box show ' + finalDir;
-
-    // Dirección
-    var dirHTML = finalDir === 'call'
-      ? '<span class="dir-call">▲</span> <span class="dir-call">CALL</span>'
-      : finalDir === 'put'
-      ? '<span class="dir-put">▼</span> <span class="dir-put">PUT</span>'
-      : '<span class="dir-neutral">⚪</span> <span class="dir-neutral">SIN SEÑAL</span>';
-    $('sigDir').innerHTML = dirHTML;
-
-    var effEl = $('effVal');
-    effEl.textContent = sc.pct + '%';
-    effEl.className   = 'eff-val eff-' + finalDir;
-    var bar = $('barFill');
-    bar.className = 'bar-fill ' + finalDir;
-    setTimeout(function() { bar.style.width = sc.pct + '%'; }, 80);
-
-    // ── Fiabilidad de temporalidad ────────────────────────────
-    renderTFReliability(timeframe, finalDir);
-
-    // ── Indicadores grid ─────────────────────────────────────
-    var rsiDir   = rsi < 40 ? 'ic-bull' : rsi > 60 ? 'ic-bear' : 'ic-neut';
-    var macdDir  = macd.histogram > 0 ? 'ic-bull' : 'ic-bear';
-    var bollDir  = boll.position < 0.25 ? 'ic-bull' : boll.position > 0.75 ? 'ic-bear' : 'ic-neut';
-    var stochDir = stoch.K < 30 ? 'ic-bull' : stoch.K > 70 ? 'ic-bear' : 'ic-neut';
-    var fibDir   = ['61.8%','78.6%','100%'].includes(fib.nearestLevel) ? 'ic-bull' : ['23.6%','0%'].includes(fib.nearestLevel) ? 'ic-bear' : 'ic-neut';
-    var patDir   = patterns[0].bias === 'bull' ? 'ic-bull' : patterns[0].bias === 'bear' ? 'ic-bear' : 'ic-neut';
-    var volDir   = vol.ratio > 1.2 ? (trend.slope > 0 ? 'ic-bull' : 'ic-bear') : 'ic-neut';
-    var trendDir = trend.slopePct > 0.02 ? 'ic-bull' : trend.slopePct < -0.02 ? 'ic-bear' : 'ic-neut';
-
-    var inds = [
-      { key:'RSI',    name:'RSI (14)',     val:rsi.toFixed(1),    sig:rsi<30?'Sobrevendido ↑':rsi>70?'Sobrecomprado ↓':'Neutral',       dir:rsiDir,   bias:rsi<40?'bull':rsi>60?'bear':'neut',
-        what:'El RSI mide si el precio ha subido o bajado demasiado rápido. Escala 0-100 creada por J. Welles Wilder.',
-        reading:'RSI = '+rsi.toFixed(1)+'. '+(rsi<30?'SOBREVENDIDO — alta probabilidad de rebote alcista.':rsi>70?'SOBRECOMPRADO — alta probabilidad de caída.':'Zona neutra (30-70). Sin señal extrema.'),
-        tip:'💡 El RSI es más potente cuando hace divergencia: el precio hace nuevo mínimo pero el RSI no → señal de reversión alcista muy fuerte.' },
-      { key:'MACD',   name:'MACD',         val:(macd.histogram>0?'+':'')+macd.histogram.toFixed(5), sig:macd.histogram>0?'Momentum alcista':'Momentum bajista', dir:macdDir, bias:macd.histogram>0?'bull':'bear',
-        what:'Diferencia entre EMA(12) y EMA(26). El histograma muestra la fuerza y dirección del momentum.',
-        reading:'Histograma '+(macd.histogram>0?'positivo → momentum alcista, compradores en control.':'negativo → momentum bajista, vendedores en control.'),
-        tip:'💡 El cruce de la línea MACD sobre la señal en temporalidades altas (M15+) es muy confiable. En M1 genera más ruido.' },
-      { key:'Boll',   name:'Bollinger BB', val:(boll.position*100).toFixed(0)+'%',                sig:boll.position<0.15?'Banda inferior':boll.position>0.85?'Banda superior':'Zona media', dir:bollDir, bias:boll.position<0.25?'bull':boll.position>0.75?'bear':'neut',
-        what:'Canal dinámico: media(20) ± 2 desviaciones estándar. Se expande con volatilidad y se contrae en calma.',
-        reading:'Precio en '+(boll.position*100).toFixed(0)+'% del canal. '+(boll.position<0.2?'Banda inferior → barato estadísticamente, favorece rebote.':boll.position>0.8?'Banda superior → caro estadísticamente, favorece corrección.':'Zona central, sin presión de banda.'),
-        tip:'💡 El "squeeze" de Bollinger (bandas muy juntas) precede movimientos explosivos. Cuando se abren después del squeeze, entra en esa dirección.' },
-      { key:'Stoch',  name:'Estocástico',  val:'K:'+stoch.K.toFixed(0)+' D:'+stoch.D.toFixed(0), sig:stoch.K<20?'Sobrevendido':stoch.K>80?'Sobrecomprado':'Zona media', dir:stochDir, bias:stoch.K<30?'bull':stoch.K>70?'bear':'neut',
-        what:'Compara el precio actual con el rango de los últimos 14 períodos. K es rápida, D es la media de K.',
-        reading:'K='+stoch.K.toFixed(1)+' D='+stoch.D.toFixed(1)+'. '+(stoch.K<20?'Sobrevendido. Espera cruce K>D para CALL.':stoch.K>80?'Sobrecomprado. Espera cruce K<D para PUT.':'Sin zona extrema.')+(stoch.K>stoch.D?' K>D → momentum positivo.':(stoch.K<stoch.D?' K<D → momentum negativo.':'')),
-        tip:'💡 El cruce K/D en zona extrema (<20 o >80) es una de las señales de entrada más clásicas del análisis técnico.' },
-      { key:'Fib',    name:'Fibonacci',    val:fib.nearestLevel,                                   sig:fib.pctFromLevel<5?'Nivel activo ←':'Alejado del nivel', dir:fibDir, bias:['61.8%','78.6%','100%'].includes(fib.nearestLevel)?'bull':['23.6%','0%'].includes(fib.nearestLevel)?'bear':'neut',
-        what:'Niveles de retroceso basados en la secuencia matemática de Fibonacci. Zonas donde el precio tiende a reaccionar.',
-        reading:'Nivel más cercano: '+fib.nearestLevel+' a '+fib.pctFromLevel.toFixed(1)+'% de distancia. '+(fib.pctFromLevel<5?'El precio está sobre este nivel → zona de reacción de alta probabilidad.':'El precio no está en un nivel Fibonacci relevante ahora.'),
-        tip:'💡 El setup más poderoso: precio retrocede al 61.8% en tendencia + Doji o Martillo + RSI sobrevendido = entrada CALL de muy alta probabilidad.' },
-      { key:'Candle', name:'Patrón vela',  val:patterns[0].name,                                   sig:patterns[0].bias==='neutral'?'Indecisión':patterns[0].type, dir:patDir, bias:patterns[0].bias,
-        what:'Patrones de velas japonesas: señales visuales de la acción del precio que traders de todo el mundo usan.',
-        reading:'"'+patterns[0].name+'" — '+(patterns[0].type==='reversal'?'reversión: posible cambio de dirección.':patterns[0].type==='continuation'?'continuación: confirma la tendencia.':'sin patrón claro.')+' Sesgo: '+patterns[0].bias+'.',
-        tip:'💡 Un patrón de vela vale mucho más cuando aparece EN un nivel clave: soporte, resistencia o Fibonacci. Solo en medio del gráfico vale menos.' },
-      { key:'Vol',    name:'Volumen',      val:vol.ratio.toFixed(2)+'x',                           sig:vol.ratio>1.3?'Volumen alto':vol.ratio<0.8?'Volumen bajo':'Normal', dir:volDir, bias:vol.ratio>1.2?(trend.slope>0?'bull':'bear'):'neut',
-        what:'Mide cuánto se está operando vs el promedio reciente. Confirma o invalida la fuerza del movimiento.',
-        reading:'Ratio '+vol.ratio.toFixed(2)+'x. '+(vol.ratio>1.3?'Volumen ALTO → respaldo real. Señal más confiable.':vol.ratio<0.8?'Volumen BAJO → movimiento débil, posible trampa. Cautela.':'Volumen normal.'),
-        tip:'💡 Nunca confíes en un breakout de resistencia sin volumen. "Volume precedes price" — el volumen anticipa el precio.' },
-      { key:'Trend',  name:'Tendencia',    val:(trend.slopePct>0?'+':'')+trend.slopePct.toFixed(2)+'%', sig:trend.slopePct>0.05?'Alcista':trend.slopePct<-0.05?'Bajista':'Lateral', dir:trendDir, bias:trend.slopePct>0.02?'bull':trend.slopePct<-0.02?'bear':'neut',
-        what:'Regresión lineal de las últimas 20 velas. Muestra la dirección y fuerza de la tendencia actual.',
-        reading:'Pendiente '+(trend.slopePct>0?'+':'')+trend.slopePct.toFixed(3)+'% por vela. '+(Math.abs(trend.slopePct)>0.05?'Tendencia '+(trend.slopePct>0?'alcista':'bajista')+' clara. Opera a favor.':'Mercado lateral. Las señales contrarian son más arriesgadas.'),
-        tip:'💡 "The trend is your friend." Las señales a favor de la tendencia tienen mayor probabilidad que las señales en contra.' },
-    ];
-
-    var grid = $('indGrid');
-    grid.innerHTML = '';
-    inds.forEach(function(ind) {
-      var card = document.createElement('div');
-      card.className = 'ind-card';
-      card.innerHTML =
-        '<div class="ic-top"><div class="ic-name">' + ind.name + '</div><div class="ic-toggle">▾ ver</div></div>' +
-        '<div class="ic-val">' + ind.val + '</div>' +
-        '<div class="ic-sig ' + ind.dir + '">' + ind.sig + '</div>' +
-        '<div class="ic-exp">' +
-          '<div style="margin-bottom:6px;">' + ind.what + '</div>' +
-          '<div class="ic-reading ' + ind.bias + '">' + ind.reading + '</div>' +
-          '<div class="ic-tip">' + ind.tip + '</div>' +
-        '</div>';
-      card.addEventListener('click', function() {
-        var exp    = card.querySelector('.ic-exp');
-        var isOpen = exp.classList.contains('open');
-        document.querySelectorAll('.ic-exp.open').forEach(function(e) { e.classList.remove('open'); });
-        document.querySelectorAll('.ind-card.open').forEach(function(c) { c.classList.remove('open'); });
-        document.querySelectorAll('.ic-toggle').forEach(function(t) { t.textContent = '▾ ver'; });
-        if (!isOpen) { exp.classList.add('open'); card.classList.add('open'); card.querySelector('.ic-toggle').textContent = '▴ cerrar'; }
-      });
-      grid.appendChild(card);
-    });
-
-    // ── Confluencia ──────────────────────────────────────────
-    var confItems = [
-      { label:'Osciladores (RSI + Estoc.)', sigs:[rsi<40?'bull':rsi>60?'bear':'neut', stoch.K<30?'bull':stoch.K>70?'bear':'neut'] },
-      { label:'Momento (MACD + Tendencia)', sigs:[macd.histogram>0?'bull':'bear', trend.slopePct>0.03?'bull':trend.slopePct<-0.03?'bear':'neut'] },
-      { label:'Estructura (Boll + Fib)',    sigs:[boll.position<0.25?'bull':boll.position>0.75?'bear':'neut', ['61.8%','78.6%','100%'].includes(fib.nearestLevel)?'bull':['23.6%','0%'].includes(fib.nearestLevel)?'bear':'neut'] },
-      { label:'Acción precio (Vela + Vol)', sigs:[patterns[0].bias==='bull'?'bull':patterns[0].bias==='bear'?'bear':'neut', vol.ratio>1.3?(trend.slope>0?'bull':'bear'):'neut'] },
-    ];
-    $('confArea').innerHTML = confItems.map(function(ci) {
-      return '<div class="conf-row"><span class="conf-label">' + ci.label + '</span><div class="conf-dots">' +
-        ci.sigs.map(function(s) { return '<div class="conf-dot ' + s + '"></div>'; }).join('') + '</div></div>';
-    }).join('');
-
-    // ── Panel de verificación ────────────────────────────────
-    var lastC2   = prices[prices.length - 1];
-    var prevC2   = prices[prices.length - 2];
-    var bodyPct  = (lastC2.high - lastC2.low) > 0 ? (Math.abs(lastC2.close - lastC2.open) / (lastC2.high - lastC2.low) * 100).toFixed(0) : '—';
-    var chgPct   = prevC2 ? ((lastC2.close - prevC2.close) / prevC2.close * 100) : 0;
-    var cDir     = lastC2.close >= lastC2.open ? '🟢 Alcista' : '🔴 Bajista';
-    var cDT      = lastC2.datetime || '(simulado)';
-    var rsiColor = rsi < 30 ? 'var(--green)' : rsi > 70 ? 'var(--red)' : 'var(--text2)';
-
-    $('verifyGrid').innerHTML =
-      '<div class="verify-card"><div class="vc-label">Precio analizado</div>' +
-        '<div class="vc-val" style="color:var(--text)">' + lastC2.close.toFixed(decimals) + '</div>' +
-        '<div class="vc-sub" style="color:' + (chgPct >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (chgPct >= 0 ? '+' : '') + chgPct.toFixed(3) + '% vs vela anterior</div>' +
-      '</div>' +
-      '<div class="verify-card"><div class="vc-label">Fecha/Hora vela</div>' +
-        '<div class="vc-val" style="font-size:13px;color:var(--text)">' + cDT + '</div>' +
-        '<div class="vc-sub">Análisis: ' + new Date().toLocaleTimeString() + '</div>' +
-      '</div>' +
-      '<div class="verify-card"><div class="vc-label">OHLC última vela</div>' +
-        '<div class="vc-ohlc">' +
-          '<span style="color:var(--text3)">O</span> ' + lastC2.open.toFixed(decimals) + ' ' +
-          '<span style="color:var(--green)">H</span> ' + lastC2.high.toFixed(decimals) + '<br>' +
-          '<span style="color:var(--red)">L</span> ' + lastC2.low.toFixed(decimals) + ' ' +
-          '<span style="color:var(--text2)">C</span> ' + lastC2.close.toFixed(decimals) +
-        '</div>' +
-      '</div>' +
-      '<div class="verify-card"><div class="vc-label">RSI calculado</div>' +
-        '<div class="vc-val" style="color:' + rsiColor + '">' + rsi.toFixed(2) + '</div>' +
-        '<div class="vc-sub">' + cDir + ' · cuerpo ' + bodyPct + '%</div>' +
-      '</div>';
-
-    $('verifyTip').innerHTML =
-      '<strong style="color:var(--text);">¿Cómo verificar en tu broker?</strong><br>' +
-      '1. Abre <strong>' + assetDisp + '</strong> en temporalidad <strong>' + timeframe.replace('min', ' min').replace('1h', '1 hora') + '</strong><br>' +
-      '2. Busca la vela con cierre en <strong style="color:var(--green)">' + lastC2.close.toFixed(decimals) + '</strong>' + (cDT !== '(simulado)' ? ' del <strong>' + cDT + '</strong>' : '') + '<br>' +
-      '3. Verifica que el RSI(14) en tu plataforma marque cerca de <strong style="color:' + rsiColor + '">' + rsi.toFixed(1) + '</strong><br>' +
-      '4. Si el RSI difiere ±2 puntos es normal — depende del historial cargado por el broker<br>' +
-      '<span style="color:var(--text3);font-size:10px;">Con API real + 80 velas la precisión es máxima. En simulación los precios son ficticios.</span>';
-
-    // ── Explicación principal ────────────────────────────────
-    $('expBox').innerHTML = buildExplanation(finalDir, sc, indicators, rsi);
-
-    // ── Footer meta ──────────────────────────────────────────
-    $('footerMeta').innerHTML = [
-      ['Par', assetDisp],
-      ['Marco', timeframe],
-      ['Expiración', expiry + 'm'],
-      ['Precio', lastC2.close.toFixed(decimals)],
-      ['RSI', rsi.toFixed(1)],
-      ['Vela', cDT],
-      ['Fuente', dataSource],
-      ['Análisis', new Date().toLocaleTimeString()],
-    ].map(function(m) {
-      return '<span class="meta-item">' + m[0] + ': <span>' + m[1] + '</span></span>';
-    }).join('');
-
-    // ── Historial ────────────────────────────────────────────
-    signalHistory.unshift({ time: new Date().toLocaleTimeString(), asset: assetDisp, tf: timeframe, dir: finalDir, pct: sc.pct });
-    if (signalHistory.length > 6) signalHistory.pop();
-    $('histList').innerHTML = signalHistory.map(function(h) {
-      return '<div class="hist-item"><span>' + h.time + ' · ' + h.asset + ' · ' + h.tf + '</span>' +
-        '<span class="h-badge ' + h.dir + '">' + (h.dir === 'call' ? '▲ CALL' : h.dir === 'put' ? '▼ PUT' : '⚪ SIN') + ' ' + h.pct + '%</span></div>';
-    }).join('');
-    $('histEl').className = 'hist show';
-
-    // Guardar último resultado para re-aplicar umbral sin recalcular
-    lastResult = { sc, indicators, prices, assetDisp, timeframe, expiry, dataSource, rsi, isJPYv, isCryptov, decimals };
-
-  } catch(err) {
-    addLog('Error: ' + err.message, 'err');
-    $('loader').className = 'loader';
-    console.error(err);
+  } else {
+    if (!apiKey) log('Sin API key → modo simulación. Agrega tu clave de Twelve Data para datos reales.', 'warn');
+    else log(`OTC detectado → modo simulación (OTC no tiene datos reales)`, 'info');
+    prices = generateSimData(assetRaw);
+    $('priceBar').className = 'price-bar show';
+    const lp = prices[prices.length-1];
+    const isJPY = assetRaw.includes('JPY');
+    const isCrypto = assetRaw.includes('BTC')||assetRaw.includes('ETH');
+    $('priceMain').textContent = lp.close.toFixed(isJPY?3:isCrypto?2:5);
+    $('priceAsset').textContent = assetDisplay + ' (simulado)';
+    $('priceChange').textContent = '±0.00%';
+    $('priceChange').className = 'price-change up';
+    $('priceMeta').textContent = 'datos simulados';
+    $('priceSource').textContent = '● DEMO';
   }
+
+  // Calcular indicadores
+  loadingStep.textContent = 'Calculando RSI...';
+  await sleep(200);
+  const rsi = calcRSI(prices);
+  log(`RSI(14) = ${rsi.toFixed(2)}${rsi<30?' ← SOBREVENDIDO':rsi>70?' ← SOBRECOMPRADO':''}`, rsi<30||rsi>70?'ok':'');
+
+  loadingStep.textContent = 'Calculando MACD...';
+  await sleep(200);
+  const macd = calcMACD(prices);
+  log(`MACD hist = ${macd.histogram>0?'+':''}${macd.histogram.toFixed(6)} ${macd.histogram>0?'↑ bullish':'↓ bearish'}`, macd.histogram>0?'ok':'warn');
+
+  loadingStep.textContent = 'Calculando Bollinger...';
+  await sleep(200);
+  const boll = calcBollinger(prices);
+  log(`Bollinger pos = ${(boll.position*100).toFixed(1)}%${boll.position<0.15?' ← banda inferior':boll.position>0.85?' ← banda superior':''}`, boll.position<0.15||boll.position>0.85?'ok':'');
+
+  loadingStep.textContent = 'Calculando Estocástico...';
+  await sleep(200);
+  const stoch = calcStochastic(prices);
+  log(`Estocástico K=${stoch.K.toFixed(1)} D=${stoch.D.toFixed(1)}`, stoch.K<20||stoch.K>80?'ok':'');
+
+  loadingStep.textContent = 'Calculando Fibonacci...';
+  await sleep(200);
+  const fib = calcFibonacci(prices);
+  log(`Fibonacci más cercano: ${fib.nearestLevel} (dist: ${fib.pctFromLevel.toFixed(1)}%)`, fib.pctFromLevel<5?'ok':'');
+
+  loadingStep.textContent = 'Detectando patrones de velas...';
+  await sleep(300);
+  const patterns = detectCandle(prices);
+  log(`Patrón: ${patterns[0].name} → ${patterns[0].bias}`, patterns[0].bias!=='neutral'?'ok':'warn');
+
+  loadingStep.textContent = 'Analizando volumen y tendencia...';
+  await sleep(200);
+  const vol = calcVolume(prices);
+  const trend = calcTrend(prices);
+  log(`Volumen ${vol.ratio.toFixed(2)}x · Tendencia ${(trend.slopePct>0?'+':'')+trend.slopePct.toFixed(3)}%/vela`, vol.ratio>1.3?'ok':'');
+
+  loadingStep.textContent = 'Calculando confluencia...';
+  await sleep(300);
+  const indicators = {rsi,macd,boll,stoch,fib,patterns,vol,trend};
+  const score = scoreSignal(indicators);
+  log(`━━━━ RESULTADO: ${score.dir.toUpperCase()} · ${score.pct}% ━━━━`, score.pct>=threshold?'ok':'warn');
+
+  overlay.className = 'loading-overlay';
+
+  // Render señal
+  const sb = $('signalBox');
+  const finalDir = score.pct < threshold ? 'neutral' : score.dir;
+  sb.className = 'signal-box show ' + finalDir;
+
+  const dirHTML = finalDir==='call'
+    ? `<span class="dir-call">▲</span> <span class="dir-call">CALL</span>`
+    : finalDir==='put'
+    ? `<span class="dir-put">▼</span> <span class="dir-put">PUT</span>`
+    : `<span class="dir-neutral">⚪</span> <span class="dir-neutral">SIN SEÑAL</span>`;
+  $('signalDir').innerHTML = dirHTML;
+
+  const effEl = $('effVal');
+  effEl.textContent = score.pct + '%';
+  effEl.className = 'eff-value eff-' + finalDir;
+
+  const bar = $('barFill');
+  bar.className = 'bar-fill ' + finalDir;
+  setTimeout(() => { bar.style.width = score.pct + '%'; }, 100);
+
+  // Indicadores grid
+  const indCls = v => v === 'ind-bull' ? 'ind-bull' : v === 'ind-bear' ? 'ind-bear' : 'ind-neutral';
+  const getRsiDir = () => rsi<40?'ind-bull':rsi>60?'ind-bear':'ind-neutral';
+  const getMacdDir = () => macd.histogram>0?'ind-bull':'ind-bear';
+  const getBollDir = () => boll.position<0.25?'ind-bull':boll.position>0.75?'ind-bear':'ind-neutral';
+  const getStochDir = () => stoch.K<30?'ind-bull':stoch.K>70?'ind-bear':'ind-neutral';
+  const getFibDir = () => ['61.8%','78.6%','100%'].includes(fib.nearestLevel)?'ind-bull':['23.6%','0%'].includes(fib.nearestLevel)?'ind-bear':'ind-neutral';
+  const getVolDir = () => vol.ratio>1.2?(trend.slope>0?'ind-bull':'ind-bear'):'ind-neutral';
+  const getTrendDir = () => trend.slopePct>0.02?'ind-bull':trend.slopePct<-0.02?'ind-bear':'ind-neutral';
+
+  const inds = [
+    { key:'RSI', name:'RSI (14)', value:rsi.toFixed(1), sig:rsi<30?'Sobrevendido ↑':rsi>70?'Sobrecomprado ↓':'Zona neutral', dir:getRsiDir(), bias:rsi<40?'bull':rsi>60?'bear':'neut',
+      readingText: `Lectura actual: RSI = ${rsi.toFixed(1)}. ${rsi<30?'Zona de sobrevendido: el precio ha caído con fuerza. Alta probabilidad de rebote alcista.':rsi>70?'Zona de sobrecomprado: el precio subió demasiado rápido. Alta probabilidad de corrección.':'Zona neutra (40–60): no hay señal extrema, el oscilador no aportó sesgo fuerte esta vez.'}`},
+    { key:'MACD', name:'MACD (12,26)', value:(macd.histogram>0?'+':'')+macd.histogram.toFixed(5), sig:macd.histogram>0?'Momentum alcista':'Momentum bajista', dir:getMacdDir(), bias:macd.histogram>0?'bull':'bear',
+      readingText:`Histograma: ${macd.histogram>0?'+':''}${macd.histogram.toFixed(6)}. ${macd.histogram>0?'La EMA(12) está por encima de la EMA(26) → los compradores tienen el control del momentum.':'La EMA(12) está por debajo de la EMA(26) → los vendedores tienen el control del momentum.'}`},
+    { key:'Bollinger', name:'Bollinger BB', value:(boll.position*100).toFixed(0)+'% pos', sig:boll.position<0.15?'Banda inferior ↑':boll.position>0.85?'Banda superior ↓':'Zona media', dir:getBollDir(), bias:boll.position<0.25?'bull':boll.position>0.75?'bear':'neut',
+      readingText:`Precio en ${(boll.position*100).toFixed(1)}% del canal. ${boll.position<0.2?'Precio cerca de la banda inferior → estadísticamente barato, el mercado suele regresar a la media.':boll.position>0.8?'Precio cerca de la banda superior → estadísticamente caro, el mercado suele revertir.':'Precio en zona central del canal → sin presión de banda, señal neutra.'}`},
+    { key:'Estocástico', name:'Estocástico', value:'K:'+stoch.K.toFixed(0)+' D:'+stoch.D.toFixed(0), sig:stoch.K<20?'Sobrevendido':stoch.K>80?'Sobrecomprado':'Zona media', dir:getStochDir(), bias:stoch.K<30?'bull':stoch.K>70?'bear':'neut',
+      readingText:`K=${stoch.K.toFixed(1)}, D=${stoch.D.toFixed(1)}. ${stoch.K<20?'Ambas líneas en sobrevendido. Si K cruza D hacia arriba es entrada CALL.':stoch.K>80?'Ambas líneas en sobrecomprado. Si K cruza D hacia abajo es entrada PUT.':'Sin señal extrema.'} ${stoch.K>stoch.D?'K está por encima de D → momentum positivo.':'K está por debajo de D → momentum negativo.'}`},
+    { key:'Fibonacci', name:'Fibonacci', value:fib.nearestLevel, sig:fib.pctFromLevel<5?'Nivel activo ←':'Alejado del nivel', dir:getFibDir(), bias:['61.8%','78.6%','100%'].includes(fib.nearestLevel)?'bull':['23.6%','0%'].includes(fib.nearestLevel)?'bear':'neut',
+      readingText:`Nivel más cercano: ${fib.nearestLevel} a ${fib.pctFromLevel.toFixed(1)}% de distancia. ${fib.pctFromLevel<5?`El precio está prácticamente encima del nivel ${fib.nearestLevel}. ${['61.8%','78.6%'].includes(fib.nearestLevel)?'Este es soporte clave → favorece CALL.':['23.6%','38.2%'].includes(fib.nearestLevel)?'Este es resistencia → favorece PUT.':'Nivel de 50% = zona de equilibrio.'}`: 'El precio no está sobre un nivel Fibonacci relevante ahora mismo.'}`},
+    { key:'Vela', name:'Patrón vela', value:patterns[0].name, sig:patterns[0].type==='none'?'Sin patrón':patterns[0].type, dir:patterns[0].bias==='bull'?'ind-bull':patterns[0].bias==='bear'?'ind-bear':'ind-neutral', bias:patterns[0].bias,
+      readingText:`Patrón detectado: "${patterns[0].name}" (${patterns[0].type}). ${patterns[0].bias==='bull'?'Este patrón indica que los compradores están tomando control. Señal de entrada alcista.':patterns[0].bias==='bear'?'Este patrón indica que los vendedores están tomando control. Señal de entrada bajista.':'Patrón de indecisión. El mercado no muestra dirección clara.'}`},
+    { key:'Volumen', name:'Volumen', value:vol.ratio.toFixed(2)+'x', sig:vol.ratio>1.3?'Volumen alto':vol.ratio<0.8?'Volumen bajo':'Volumen normal', dir:getVolDir(), bias:vol.ratio>1.2?(trend.slope>0?'bull':'bear'):'neut',
+      readingText:`Ratio: ${vol.ratio.toFixed(2)}x respecto al promedio. ${vol.ratio>1.3?'El volumen superior al promedio confirma que hay participación real y fuerza detrás del movimiento actual.':vol.ratio<0.8?'Volumen bajo → el movimiento actual puede ser débil o falso. Mayor cautela.':'Volumen normal. Ni confirma ni niega el movimiento.'}`},
+    { key:'Tendencia', name:'Tendencia', value:(trend.slopePct>0?'+':'')+trend.slopePct.toFixed(2)+'%', sig:trend.slopePct>0.05?'Alcista':trend.slopePct<-0.05?'Bajista':'Lateral', dir:getTrendDir(), bias:trend.slopePct>0.02?'bull':trend.slopePct<-0.02?'bear':'neut',
+      readingText:`Pendiente de regresión: ${(trend.slopePct>0?'+':'')+trend.slopePct.toFixed(3)}% por vela. ${Math.abs(trend.slopePct)>0.05?`Tendencia ${trend.slopePct>0?'alcista':'bajista'} clara en las últimas 20 velas. Opera a favor de esta dirección.`:'Mercado lateral sin tendencia definida. Las señales contrarian son más arriesgadas en lateralización.'}`},
+  ];
+
+  const grid = $('indGrid');
+  grid.innerHTML = '';
+  inds.forEach(ind => {
+    const card = document.createElement('div');
+    card.className = 'ind-card';
+    card.innerHTML = `
+      <div class="ind-top">
+        <div class="ind-name">${ind.name}</div>
+        <div class="ind-arrow">▾ ver</div>
+      </div>
+      <div class="ind-value">${ind.value}</div>
+      <div class="ind-signal ${ind.dir}">${ind.sig}</div>
+      <div class="explanation" id="exp_${ind.key}">
+        ${buildIndicatorExplanation(ind.key, ind.value, ind.sig, ind.bias, ind.readingText)}
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      const expEl = card.querySelector('.explanation');
+      const isOpen = expEl.classList.contains('open');
+      document.querySelectorAll('.explanation.open').forEach(e => e.classList.remove('open'));
+      document.querySelectorAll('.ind-card.expanded').forEach(c => c.classList.remove('expanded'));
+      if (!isOpen) { expEl.classList.add('open'); card.classList.add('expanded'); card.querySelector('.ind-arrow').textContent = '▴ cerrar'; }
+      else { card.querySelector('.ind-arrow').textContent = '▾ ver'; }
+    });
+    grid.appendChild(card);
+  });
+
+  // Confluencia
+  const confItems = [
+    { label: 'Osciladores (RSI + Esto.)', sigs: [rsi<40?'bull':rsi>60?'bear':'neut', stoch.K<30?'bull':stoch.K>70?'bear':'neut'] },
+    { label: 'Momento (MACD + Tenden.)', sigs: [macd.histogram>0?'bull':'bear', trend.slopePct>0.03?'bull':trend.slopePct<-0.03?'bear':'neut'] },
+    { label: 'Estructura (Boll + Fib)', sigs: [boll.position<0.25?'bull':boll.position>0.75?'bear':'neut', ['61.8%','78.6%','100%'].includes(fib.nearestLevel)?'bull':['23.6%','0%'].includes(fib.nearestLevel)?'bear':'neut'] },
+    { label: 'Acción precio (Vela + Vol)', sigs: [patterns[0].bias==='bull'?'bull':patterns[0].bias==='bear'?'bear':'neut', vol.ratio>1.3?(trend.slope>0?'bull':'bear'):'neut'] },
+  ];
+  $('confArea').innerHTML = confItems.map(c=>`
+    <div class="conf-row">
+      <span class="conf-label">${c.label}</span>
+      <div class="conf-dots">${c.sigs.map(s=>`<div class="conf-dot ${s}"></div>`).join('')}</div>
+    </div>`).join('');
+
+  // Explicación principal
+  $('signalExplanation').innerHTML = buildSignalExplanation(finalDir, score, indicators);
+
+  // Footer
+  $('footerMeta').innerHTML = `
+    <span class="meta-item">Par: <span>${assetDisplay}</span></span>
+    <span class="meta-item">Marco: <span>${timeframe}</span></span>
+    <span class="meta-item">Exp: <span>${expiry}m</span></span>
+    <span class="meta-item">Fuente: <span>${dataSource}</span></span>
+    <span class="meta-item">Hora: <span>${new Date().toLocaleTimeString()}</span></span>
+  `;
+
+  // Historial
+  signalHistory.unshift({ time: new Date().toLocaleTimeString(), asset: assetDisplay, tf: timeframe, dir: finalDir, pct: score.pct });
+  if (signalHistory.length > 6) signalHistory.pop();
+  const hs = $('historySection');
+  hs.className = 'history-section show';
+  $('historyList').innerHTML = signalHistory.map(h=>`
+    <div class="history-item">
+      <span>${h.time} · ${h.asset} · ${h.tf}</span>
+      <span class="h-badge ${h.dir}">${h.dir==='call'?'▲ CALL':h.dir==='put'?'▼ PUT':'⚪ SIN'} ${h.pct}%</span>
+    </div>`).join('');
 
   btn.disabled = false;
 }
 
-// Conectar botón con evento (más robusto que onclick inline)
-$('analyzeBtn').addEventListener('click', function() {
-  runAnalysis().catch(function(e) {
-    console.error('runAnalysis error:', e);
-    $('loader').className = 'loader';
-    $('analyzeBtn').disabled = false;
-  });
+// validar API key en tiempo real
+$('apiKey').addEventListener('input', () => {
+  const k = $('apiKey').value.trim();
+  const st = $('apiStatus');
+  if (k.length > 10) { st.textContent = '● LISTA'; st.className = 'api-status ok'; }
+  else { st.textContent = '● DEMO'; st.className = 'api-status demo'; }
 });
-
-// ── TEMPORALIDAD: datos de fiabilidad ────────────────────────
-var TF_DATA = {
-  '1min': {
-    stars: 1, label: 'M1 — Muy difícil',
-    color: '#ff5c75', bg: 'rgba(255,92,117,0.10)', border: 'rgba(255,92,117,0.4)',
-    expiry: 1,
-    warning: '⚠️ M1 es la temporalidad más difícil. El ruido del mercado es muy alto y los indicadores pierden precisión. Sube el umbral a 75%+ y opera solo señales muy claras.',
-    reliability: [
-      { ind:'RSI',         pct:45, note:'Reacciona a micro-movimientos sin importancia' },
-      { ind:'MACD',        pct:40, note:'Genera muchas señales falsas en M1' },
-      { ind:'Bollinger',   pct:50, note:'Útil solo en rangos muy definidos' },
-      { ind:'Patrón vela', pct:55, note:'Los patrones más confiables en M1' },
-      { ind:'Fibonacci',   pct:35, note:'Poco respetado en temporalidades tan bajas' },
-    ],
-    tip: '💡 Estrategia M1: analiza la tendencia en M5 primero, luego entra en M1 a favor de esa tendencia grande. Expiración recomendada: 1-2 minutos.'
-  },
-  '5min': {
-    stars: 5, label: 'M5 — Óptimo para binarias OTC ⭐',
-    color: '#00ff9d', bg: 'rgba(0,255,157,0.08)', border: 'rgba(0,255,157,0.4)',
-    expiry: 5,
-    warning: null,
-    reliability: [
-      { ind:'RSI',         pct:80, note:'Muy confiable, señales claras de sobrecompra/sobreventa' },
-      { ind:'MACD',        pct:75, note:'Buen momentum, cruces significativos' },
-      { ind:'Bollinger',   pct:82, note:'Canal bien definido, rebotes precisos' },
-      { ind:'Patrón vela', pct:78, note:'Patrones bien formados y respetados' },
-      { ind:'Fibonacci',   pct:72, note:'Niveles respetados con buena frecuencia' },
-    ],
-    tip: '💡 M5 es el estándar de los traders rentables en binarias OTC. Cada señal analiza la vela que cierra y entras al inicio de la siguiente. Expiración: 5 minutos.'
-  },
-  '15min': {
-    stars: 4, label: 'M15 — Alta fiabilidad',
-    color: '#5bc4ff', bg: 'rgba(91,196,255,0.08)', border: 'rgba(91,196,255,0.4)',
-    expiry: 15,
-    warning: null,
-    reliability: [
-      { ind:'RSI',         pct:85, note:'Señales muy claras y confiables' },
-      { ind:'MACD',        pct:82, note:'Momentum sólido y tendencias claras' },
-      { ind:'Bollinger',   pct:87, note:'Canal muy bien definido' },
-      { ind:'Patrón vela', pct:83, note:'Patrones altamente respetados' },
-      { ind:'Fibonacci',   pct:80, note:'Niveles con alto respeto del mercado' },
-    ],
-    tip: '💡 M15 tiene alta fiabilidad pero la expiración es larga (15 min). Ideal si tienes paciencia. Menos operaciones pero más calidad.'
-  },
-  '30min': {
-    stars: 4, label: 'M30 — Muy alta fiabilidad',
-    color: '#5bc4ff', bg: 'rgba(91,196,255,0.08)', border: 'rgba(91,196,255,0.4)',
-    expiry: 30,
-    warning: null,
-    reliability: [
-      { ind:'RSI',         pct:88, note:'Señales premium de alta calidad' },
-      { ind:'MACD',        pct:85, note:'Tendencias claras y duraderas' },
-      { ind:'Bollinger',   pct:90, note:'Canal con altísima precisión' },
-      { ind:'Patrón vela', pct:87, note:'Patrones institucionales respetados' },
-      { ind:'Fibonacci',   pct:85, note:'Niveles clave muy respetados' },
-    ],
-    tip: '💡 M30 es excelente para calidad de señal pero expiración larga. Menos operaciones al día, más paciencia requerida.'
-  },
-  '1h': {
-    stars: 5, label: 'H1 — Máxima fiabilidad',
-    color: '#a78bfa', bg: 'rgba(167,139,250,0.08)', border: 'rgba(167,139,250,0.4)',
-    expiry: 60,
-    warning: null,
-    reliability: [
-      { ind:'RSI',         pct:92, note:'La lectura más confiable posible' },
-      { ind:'MACD',        pct:90, note:'Momentum institucional de alta calidad' },
-      { ind:'Bollinger',   pct:93, note:'Canal de máxima precisión' },
-      { ind:'Patrón vela', pct:90, note:'Patrones con respaldo institucional' },
-      { ind:'Fibonacci',   pct:88, note:'Niveles más respetados del mercado' },
-    ],
-    tip: '💡 H1 tiene la mayor fiabilidad pero no es práctica para binarias OTC por la expiración larga. Úsala para confirmar la tendencia grande antes de entrar en M5.'
-  }
-};
-
-function onTFChange() {
-  var tf  = $('timeframe').value;
-  var d   = TF_DATA[tf];
-  var warn = $('tfWarning');
-  var expEl = $('expiry');
-
-  // Actualizar expiración automáticamente
-  expEl.value = d.expiry;
-
-  // Mostrar advertencia si M1
-  if (d.warning) {
-    warn.style.display  = 'block';
-    warn.style.background = d.bg;
-    warn.style.borderColor = d.border;
-    warn.style.color = d.color;
-    warn.innerHTML = d.warning + '<br><span style="font-size:12px;opacity:.8;">' + d.tip + '</span>';
-  } else {
-    warn.style.display = 'none';
-  }
-}
-
-// Umbral: al cambiarlo solo actualiza la dirección mostrada, sin recalcular
-$('threshold').addEventListener('input', function() {
-  if (!lastResult) return;
-  var newThr  = parseInt(this.value) || 68;
-  var sc      = lastResult.sc;
-  var newDir  = sc.pct < newThr ? 'neutral' : sc.dir;
-  var sb      = $('signalBox');
-  if (!sb.classList.contains('show')) return;
-
-  // Actualizar clase del box
-  sb.className = 'signal-box show ' + newDir;
-
-  // Actualizar dirección
-  var dirHTML = newDir === 'call'
-    ? '<span class="dir-call">▲</span> <span class="dir-call">CALL</span>'
-    : newDir === 'put'
-    ? '<span class="dir-put">▼</span> <span class="dir-put">PUT</span>'
-    : '<span class="dir-neutral">⚪</span> <span class="dir-neutral">SIN SEÑAL</span>';
-  $('sigDir').innerHTML = dirHTML;
-
-  // El porcentaje NO cambia — solo la dirección
-  $('effVal').className = 'eff-val eff-' + newDir;
-  var bar = $('barFill');
-  bar.className = 'bar-fill ' + newDir;
-
-  // Actualizar panel de fiabilidad con nueva dirección
-  renderTFReliability(lastResult.timeframe, newDir);
-});
-
-// ── TABS ─────────────────────────────────────────────────────
-function vSwitchTab(t) {
-  ['signal','timer','journal'].forEach(function(id) {
-    var tab = $('vtab-'+id), pan = $('vpanel-'+id);
-    var isActive = id === t;
-    if (tab) { tab.style.background = isActive ? 'var(--bg4)' : ''; tab.style.color = isActive ? '#fff' : 'var(--text2)'; tab.style.border = isActive ? '1px solid var(--border2)' : ''; }
-    if (pan) pan.style.display = isActive ? 'block' : 'none';
-  });
-  if (t === 'journal') vRenderJournal();
-  if (t === 'timer')   vSyncTimer();
-}
-
-// ── RELOJ ─────────────────────────────────────────────────────
-setInterval(function() {
-  var el = $('clockBadge');
-  if (el) el.textContent = new Date().toLocaleTimeString('es', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-}, 1000);
-
-// ── TIMER ─────────────────────────────────────────────────────
-var vTimerInterval = null;
-var V_CIRC = 289;
-
-function vSyncTimer() {
-  var tfSec = parseInt($('vTimerTF').value) || 300;
-  var now   = new Date();
-  var total = now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds();
-  var rem   = tfSec - (total % tfSec);
-  vStartCountdown(rem, tfSec);
-}
-
-function vResetTimer() { vSyncTimer(); }
-
-function vStartCountdown(remaining, total) {
-  if (vTimerInterval) clearInterval(vTimerInterval);
-  var secs = remaining;
-  function tick() {
-    if (secs < 0) secs = total;
-    var pct = secs / total;
-    var ring = $('vRing');
-    var color = secs <= 10 ? '#ff5c75' : secs <= 20 ? '#ffcc00' : '#00ff9d';
-    if (ring) { ring.style.strokeDashoffset = V_CIRC * (1 - pct); ring.style.stroke = color; }
-    var secEl = $('vTimerSec');
-    if (secEl) { secEl.textContent = secs; secEl.style.color = color; }
-    var m = Math.floor(secs/60), s = secs % 60;
-    var el = $('vTimerFull'); if (el) el.textContent = m+':'+String(s).padStart(2,'0');
-    var now  = new Date();
-    var next = new Date(now.getTime() + secs*1000);
-    var en = $('vTimerNext'); if (en) en.textContent = next.toLocaleTimeString();
-    var tn = $('vTimerNow');  if (tn) tn.textContent = now.toLocaleTimeString();
-    var st = $('vTimerStatus'), al = $('vTimerAlert');
-    if (secs <= 5) {
-      if (st) { st.textContent='🟢 ¡ENTRA AHORA!'; st.style.background='rgba(0,255,157,.12)'; st.style.color='#00ff9d'; }
-      if (al) { al.style.display='block'; al.style.background='rgba(0,255,157,.1)'; al.style.border='2px solid rgba(0,255,157,.3)'; al.style.color='#00ff9d'; al.textContent='🟢 ¡MOMENTO DE ENTRADA! Presiona CALL o PUT ahora.'; }
-    } else if (secs <= 15) {
-      if (st) { st.textContent='🟡 Prepárate'; st.style.background='rgba(255,204,0,.1)'; st.style.color='#ffcc00'; }
-      if (al) { al.style.display='block'; al.style.background='rgba(255,204,0,.08)'; al.style.border='2px solid rgba(255,204,0,.3)'; al.style.color='#ffcc00'; al.textContent='⚡ Prepárate — '+secs+'s para el cierre. Ten lista tu entrada.'; }
-    } else {
-      if (st) { st.textContent='⏳ Esperando'; st.style.background='rgba(255,204,0,.1)'; st.style.color='#ffcc00'; }
-      if (al) al.style.display='none';
-    }
-    secs--;
-  }
-  tick();
-  vTimerInterval = setInterval(tick, 1000);
-}
-
-// ── JOURNAL ───────────────────────────────────────────────────
-var vJournal = JSON.parse(localStorage.getItem('binary_journal') || '[]');
-
-function vSaveJournal() { localStorage.setItem('binary_journal', JSON.stringify(vJournal)); }
-
-function vAddJournal() {
-  vJournal.unshift({
-    id: Date.now(),
-    time: new Date().toLocaleString('es'),
-    asset: $('vj_asset').value,
-    dir: $('vj_dir').value,
-    result: $('vj_result').value,
-    amount: parseFloat($('vj_amount').value) || 0,
-    notes: $('vj_notes').value.trim()
-  });
-  vSaveJournal();
-  $('vj_notes').value = '';
-  vRenderJournal();
-  vSwitchTab('journal');
-}
-
-function vRenderJournal() {
-  var wins  = vJournal.filter(j => j.result === 'win').length;
-  var total = vJournal.length;
-  var pct   = total > 0 ? Math.round(wins/total*100) : 0;
-  var invested = vJournal.reduce((a,j) => a+(j.amount||0), 0);
-  var pctColor = pct >= 60 ? '#00ff9d' : pct >= 50 ? '#ffcc00' : '#ff5c75';
-
-  $('vjStats').innerHTML = [
-    {v:total, l:'Operaciones', c:'#fff'},
-    {v:wins,  l:'Ganadas ✅',  c:'#00ff9d'},
-    {v:total-wins, l:'Perdidas ❌', c:'#ff5c75'},
-    {v:pct+'%', l:'Efectividad real', c:pctColor},
-    {v:'$'+invested.toFixed(0), l:'Capital operado', c:'#5bc4ff'},
-  ].map(s =>
-    '<div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:12px;text-align:center;">' +
-    '<div style="font-size:22px;font-weight:800;font-family:\'IBM Plex Mono\',monospace;color:'+s.c+';">'+s.v+'</div>' +
-    '<div style="font-size:11px;color:var(--text2);margin-top:3px;">'+s.l+'</div></div>'
-  ).join('');
-
-  var list = $('vjList');
-  if (vJournal.length === 0) {
-    list.innerHTML = '<div style="font-size:13px;color:var(--text3);text-align:center;padding:1.5rem;">Empieza el lunes y registra cada entrada aquí.</div>';
-    return;
-  }
-  list.innerHTML = vJournal.map(j =>
-    '<div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:10px 14px;margin-bottom:5px;font-size:12px;color:var(--text2);font-family:\'IBM Plex Mono\',monospace;">' +
-    '<div><div style="font-weight:700;color:#fff;">'+j.asset+' · '+(j.dir==='call'?'▲ CALL':'▼ PUT')+'</div>' +
-    '<div style="font-size:11px;margin-top:2px;">'+j.time+(j.notes?' · '+j.notes:'')+'</div></div>' +
-    '<div style="display:flex;align-items:center;gap:8px;">' +
-    (j.amount?'<span style="font-size:12px;">$'+j.amount+'</span>':'') +
-    '<span style="font-size:11px;padding:3px 10px;border-radius:8px;font-weight:700;'+(j.result==='win'?'background:rgba(0,255,157,.12);color:#00ff9d;':'background:rgba(255,92,117,.12);color:#ff5c75;')+'">'+
-    (j.result==='win'?'✅ Ganada':'❌ Perdida')+'</span>' +
-    '<button onclick="vDeleteEntry('+j.id+')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;">✕</button>' +
-    '</div></div>'
-  ).join('');
-}
-
-function vDeleteEntry(id) { vJournal = vJournal.filter(j => j.id !== id); vSaveJournal(); vRenderJournal(); }
-
-function vExportJournal() {
-  if (!vJournal.length) { alert('No hay operaciones.'); return; }
-  var csv = 'Fecha,Activo,Dirección,Resultado,Inversión,Notas\n' +
-    vJournal.map(j => '"'+j.time+'","'+j.asset+'","'+j.dir+'","'+j.result+'","'+j.amount+'","'+j.notes+'"').join('\n');
-  var a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'journal_binarias_'+new Date().toISOString().split('T')[0]+'.csv';
-  a.click();
-}
-
-function vClearJournal() {
-  if (!confirm('¿Borrar todo el historial?')) return;
-  vJournal = []; vSaveJournal(); vRenderJournal();
-}
-
-// Init
-vSwitchTab('signal');
-vRenderJournal();
-window.addEventListener('load', function() { vSyncTimer(); setInterval(vSyncTimer, 60000); });
-
-// ── RENDER FIABILIDAD EN SEÑAL ────────────────────────────────
-function renderTFReliability(tf, finalDir) {
-  var d    = TF_DATA[tf] || TF_DATA['5min'];
-  var el   = $('tfReliability');
-  var stars = '⭐'.repeat(d.stars) + (d.stars < 5 ? '☆'.repeat(5 - d.stars) : '');
-  var dirTxt = finalDir === 'call' ? 'CALL (SUBE)' : finalDir === 'put' ? 'PUT (BAJA)' : 'SIN SEÑAL';
-  var expTxt = d.expiry + ' minuto' + (d.expiry > 1 ? 's' : '');
-
-  el.style.background  = d.bg;
-  el.style.borderColor = d.border;
-  el.style.color       = '#ffffff';
-
-  el.innerHTML =
-    '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">' +
-      '<div>' +
-        '<div style="font-size:15px;font-weight:800;color:' + d.color + ';">' + d.label + '</div>' +
-        '<div style="font-size:13px;margin-top:2px;">' + stars + ' · Fiabilidad de indicadores</div>' +
-      '</div>' +
-      '<div style="text-align:right;">' +
-        '<div style="font-size:11px;color:rgba(255,255,255,0.6);">Entrada</div>' +
-        '<div style="font-size:14px;font-weight:700;">Inicio siguiente vela</div>' +
-        '<div style="font-size:11px;color:rgba(255,255,255,0.6);">Expiración recomendada</div>' +
-        '<div style="font-size:14px;font-weight:700;color:' + d.color + ';">' + expTxt + '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin-bottom:10px;">' +
-    d.reliability.map(function(r) {
-      var barColor = r.pct >= 75 ? '#00ff9d' : r.pct >= 55 ? '#ffcc00' : '#ff5c75';
-      return '<div style="background:rgba(0,0,0,0.25);border-radius:8px;padding:8px 10px;">' +
-        '<div style="font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:4px;">' + r.ind + '</div>' +
-        '<div style="display:flex;align-items:center;gap:8px;">' +
-          '<div style="flex:1;height:5px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden;">' +
-            '<div style="height:100%;width:' + r.pct + '%;background:' + barColor + ';border-radius:3px;"></div>' +
-          '</div>' +
-          '<div style="font-size:12px;font-weight:700;color:' + barColor + ';min-width:32px;">' + r.pct + '%</div>' +
-        '</div>' +
-        '<div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:3px;line-height:1.4;">' + r.note + '</div>' +
-      '</div>';
-    }).join('') +
-    '</div>' +
-    '<div style="font-size:12px;color:rgba(255,255,255,0.65);background:rgba(0,0,0,0.2);border-radius:8px;padding:9px 12px;line-height:1.6;">' + d.tip + '</div>';
-}
 </script>
 </body>
 </html>
